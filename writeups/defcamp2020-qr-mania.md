@@ -1,4 +1,4 @@
-# [DefCamp 2020 CTF](https://link.com) : qr-mania
+# [DefCamp 2020](https://dctf2020.cyberedu.ro/) : qr-mania
 
 **Category:** [Network, Misc, Programming]
 
@@ -24,11 +24,21 @@
 
 ## writeup
 
+### extracting http objects with wireshark
+
+inspecting the pcap file with wireshark reveals some http responses with png images.
+these can be extracted using the wireshark cli with the `--export-objects` option.
+
 ```bash
 tshark -r challenge.pcap --export-objects "http,resources"
 ```
 
-### extracting the order from EXIF
+the extracted images contain colored qr codes, which decode to one character each.
+it is safe to assume that the flag has to be assembled from those characters; but what about their order?
+
+### extracting the order from the exif data
+
+turns out the position of each character is stored in the corresponding image's exif data.
 
 ```bash
 ls resources/*.png |\
@@ -43,14 +53,16 @@ awk '{print "resources/"$1}' >\
 order.txt
 ```
 
+`order.txt` now contains a list of filenames in the order in which the images should be decoded.
 
-### decode qr codes
+### decoding the qr codes
 
-convert the images to monochrome and decode them:
+using a python script, iterate over the filenames in the previously obtained order and convert the qr codes to monochrome so they can be decoded with `pyzbar`:
 
 ```python
 #!/usr/bin/env python
 from pyzbar.pyzbar import decode
+
 from PIL import Image
 
 with open("order.txt") as order:
@@ -73,4 +85,10 @@ with open("order.txt") as order:
     print()
 ```
 
-`CTF{2b2e8580cdf35896d75bfc4b1bafff6ee90f6c525da3b9a26dd7726bf2171396}`
+### obtaining the flag
+
+running the python script generates the following output:
+
+```plaintext
+CTF{2b2e8580cdf35896d75bfc4b1bafff6ee90f6c525da3b9a26dd7726bf2171396}
+```
