@@ -25,7 +25,67 @@
 
 ## writeup
 
-### WIP
+### inspecting the downloaded file
+
+running `file` on the downloaded file reveals that it is a gzip compressed archive
+
+```plaintext
+jibeqnocfjjuijypians: gzip compressed data, was "ognhhfcfspjokexhjwoo"
+last modified: Mon Oct 12 09:33:12 2020, from Unix, original size modulo 2^32 14527
+```
+
+using `7z` to extract it, we get another archive, this time copressed with zip
+
+```plaintext
+ognhhfcfspjokexhjwoo: Zip archive data, at least v1.0 to extract
+```
+
+### digging deeper
+
+let's keep extracting it with `7z`
+
+```plaintext
+Enter password (will not be echoed):
+```
+
+of course that would have been too simple...
+
+john will handle it
+
+```bash
+zip2john ognhhfcfspjokexhjwoo > hash
+john hash --wordlist=/usr/share/dict/rockyou.txt
+```
+
+```plaintext
+Using default input encoding: UTF-8
+Loaded 1 password hash (PKZIP [32/64])
+Will run 8 OpenMP threads
+Press 'q' or Ctrl-C to abort, almost any other key for status
+password         (ognhhfcfspjokexhjwoo/hash)
+1g 0:00:00:00 DONE (2020-12-24 18:57) 25.00g/s 409600p/s 409600c/s 409600C/s 123456..christal
+Use the "--show" option to display all of the cracked passwords reliably
+Session completed
+```
+
+extracting the archive with the cracked password results in a flie `archives/kkpjjvslqucmkudjqspk` which is again a gzip compressed archive
+
+after manually peeling back a few layers, a third archive format emerges
+
+```plaintext
+yrcpacrptgxicwigdrpu: 7-zip archive data, version 0.4
+```
+
+### automating the work
+
+the script should loop indefinitely, taking certain actions on specific file formats:
+- **gzip archive**: extract it
+- **7-zip archive**: crack the password and extract it
+- **zip archive**: crack the password, extract it and move the obtained file from the subdirectory up one level
+- **ascii text**: display contents
+- **other**: halt
+
+the following bash script does the same thing, except for the part with the subdirectories. it extracts both `gzip` and `7-zip` archives with the `-oarchives/` option, placing the resulting files in a subdirectory, the same way as `zip` archives are. this helps with wildcard-matching the resulting file
 
 ```bash
 #!/bin/bash
@@ -35,20 +95,16 @@ mv "$1" archive
 while true; do
     if [ -n "$(file archive | grep 'Zip archive data')" ]; then
         echo "zip"
-        zip2john archive > ziphash
-        password=$(john ziphash --wordlist=~/Desktop/rockyou.txt | grep archive | cut -d' ' -f1)
-        if [ -z "$password" ]; then
-            password=$(john ziphash --show | grep archive | cut -d':' -f2)
-        fi
+        zip2john archive > hash
+        john hash --wordlist=/usr/share/dict/rockyou.txt
+        password=$(john hash --show | grep archive | cut -d':' -f2)
         7z x archive -p$password
         mv archives/* archive
     elif [ -n "$(file archive | grep '7-zip archive data')" ]; then
         echo "7-zip"
-        7z2john archive > ziphash
-        password=$(john ziphash --wordlist=~/Desktop/rockyou.txt | grep archive | cut -d' ' -f1)
-        if [ -z "$password" ]; then
-            password=$(john ziphash --show | grep archive | cut -d':' -f2)
-        fi
+        7z2john archive > hash
+        john hash --wordlist=/usr/share/dict/rockyou.txt
+        password=$(john hash --show | grep archive | cut -d':' -f2)
         7z x archive -p$password -oarchives/
         mv archives/* archive
     elif [ -n "$(file archive | grep 'gzip compressed data')" ]; then
@@ -66,4 +122,20 @@ while true; do
     fi
     sleep 1
 done
+```
+
+### obtaining the flag
+
+run the script with the initial archive as parameter
+
+```bash
+./matrioska.sh jibeqnocfjjuijypians
+```
+
+and watch john do it's thing
+
+after a few minutes it reaches the plain textfile and the flag will be printed
+
+```plaintext
+ctf{8ffe609c04a7001a908da5b481442ce1ce3208f2a4f3a6862e144bb1f320c54e}
 ```
