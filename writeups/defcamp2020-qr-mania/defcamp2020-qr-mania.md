@@ -1,12 +1,12 @@
 # [DefCamp 2020](https://dctf2020.cyberedu.ro/) : qr-mania
 
-**Category:** [Network, Misc, Programming]
+**Category:** [network, misc, programming]
 
 **Points:** 50 (dynamic)
 
 **Solves:** 75
 
-**Difficulty:** Medium
+**Difficulty:** medium
 
 **Description:**
 
@@ -26,19 +26,21 @@
 
 ### extracting http objects with wireshark
 
-inspecting the pcap file with wireshark reveals some http responses with png images.
-these can be extracted using the wireshark cli with the `--export-objects` option.
+inspecting the pcap file with wireshark reveals some http responses with png images
+
+these can be extracted using the wireshark cli with the `--export-objects` option
 
 ```bash
 tshark -r challenge.pcap --export-objects "http,resources"
 ```
 
-the extracted images contain colored qr codes, which decode to one character each.
+the extracted images contain colored qr codes, which decode to one character each
+
 it is safe to assume that the flag has to be assembled from those characters; but what about their order?
 
 ### extracting the order from the exif data
 
-turns out the position of each character is stored in the corresponding image's exif data.
+turns out the position of each character is stored in the exif data of the corresponding image
 
 ```bash
 ls resources/*.png |\
@@ -53,7 +55,7 @@ awk '{print "resources/"$1}' >\
 order.txt
 ```
 
-`order.txt` now contains a list of filenames in the order in which the images should be decoded.
+`order.txt` now contains a list of filenames in the order in which the images should be decoded
 
 ### decoding the qr codes
 

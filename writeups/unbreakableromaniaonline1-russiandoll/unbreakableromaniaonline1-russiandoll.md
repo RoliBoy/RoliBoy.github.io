@@ -1,12 +1,12 @@
 # [Unbreakable Romania Online 1](https://unr1.cyberedu.ro/) : russiandoll
 
-**Category:** [Misc, Programming]
+**Category:** [misc, programming]
 
 **Points:** 70 (dynamic)
 
 **Solves:** 43
 
-**Difficulty:** Medium
+**Difficulty:** medium
 
 **Description:**
 
@@ -85,7 +85,7 @@ the script should loop indefinitely, taking certain actions on specific file for
 - **ascii text**: display contents
 - **other**: halt
 
-the following bash script does the same thing, except for the part with the subdirectories. it extracts both `gzip` and `7-zip` archives with the `-oarchives/` option, placing the resulting files in a subdirectory, the same way as `zip` archives are. this helps with wildcard-matching the resulting file
+the following bash script does the same thing, except for the part with the subdirectories. it extracts both `gzip` and `7-zip` archives with the `-oarchives/` option, placing the resulting files in a subdirectory, the same way as `zip` archives do. this helps with wildcard-matching the resulting file
 
 ```bash
 #!/bin/bash
