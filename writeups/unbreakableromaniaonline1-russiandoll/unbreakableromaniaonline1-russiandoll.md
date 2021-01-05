@@ -129,7 +129,7 @@ done
 run the script with the initial archive as parameter
 
 ```bash
-./matrioska.sh jibeqnocfjjuijypians
+$ ./matrioska.sh jibeqnocfjjuijypians
 ```
 
 and watch john do it's thing

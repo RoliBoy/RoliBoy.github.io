@@ -72,6 +72,7 @@ optimizing brainfuck compiler
 - [defcamp 2020 : qr-mania](/writeups/defcamp2020-qr-mania/defcamp2020-qr-mania.md)
 - [unbreakable romania online 1 : russiandoll](/writeups/unbreakableromaniaonline1-russiandoll/unbreakableromaniaonline1-russiandoll.md)
 - [pwnable.xyz : welcome](/writeups/pwnablexyz-welcome/pwnablexyz-welcome.md)
+- [pwnable.xyz : sub](/writeups/pwnablexyz-sub/pwnablexyz-sub.md)
 
 # contacts
 
