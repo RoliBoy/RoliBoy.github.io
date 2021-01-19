@@ -56,6 +56,9 @@ optimizing brainfuck compiler
 *list of features*
 *benchmark thingies and usage example*
 
+## [ansify](/projects/ansify/ansify.md)
+
+*images of cute anime girls*
 
 ## [raytracer](/projects/raytracer/raytracer.md)
 

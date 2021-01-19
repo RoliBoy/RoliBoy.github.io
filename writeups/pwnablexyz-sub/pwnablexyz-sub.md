@@ -106,7 +106,7 @@ both checks in the program use a signed comparison instruction, so for all inten
 ### obtaining the flag
 
 ```plaintext
-let n1 = k, with k < 0`
+let n1 = k, with k < 0
 and n2 = k - 0x1337
 then
 n1 - n2 = k - (k - 0x1337) = 0x1337
