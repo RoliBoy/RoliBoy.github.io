@@ -1,6 +1,6 @@
 # things
 
-## [icarus](/projects/icarus/icarus.md)
+## [icarus](projects/icarus/icarus.md)
 
 custom archiso profile for CTF players
 
@@ -9,11 +9,11 @@ custom archiso profile for CTF players
 *TODO: screenshots?*
 
 
-## [archer](/projects/archer/archer.md)
+## [archer](projects/archer/archer.md)
 
 automated arch linux install script for brainlets
 
-![archer](/projects/archer/archer.png)
+![archer](projects/archer/archer.png)
 
 ### features
 
@@ -26,7 +26,7 @@ automated arch linux install script for brainlets
 - -wireless : for tlp-rdw and more battery life optimization
 - -bluetooth : for drivers and optional bluetooth headphone support
 - -ssd : for trimming
-- pacman mirror ranking [wip]
+- pacman mirror ranking
 - desktop environment / window manager selection
 - user creation with custom login shell
 - multiple backends for nvidia optimus
@@ -43,39 +43,41 @@ run the following command on the live iso
 curl -s roliboy.ml/archer | bash
 ```
 
-## [rootcow](/projects/rootcow/rootcow.md)
+## [rootcow](projects/rootcow/rootcow.md)
 
 read-only write privilege escalation using CVE-2016-5195
 
 *usage*
 
-## [turbofuck](/projects/turbofuck/turbofuck.md)
+## [turbofuck](projects/turbofuck/turbofuck.md)
 
 optimizing brainfuck compiler
 
 *list of features*
 *benchmark thingies and usage example*
 
-## [ansify](/projects/ansify/ansify.md)
+## [ansify](projects/ansify/ansify.md)
 
-*images of cute anime girls*
+image to ansi rgb escape sequence converter
 
-## [raytracer](/projects/raytracer/raytracer.md)
+![taiga](projects/ansify/taiga.png)
+
+## [raytracer](projects/raytracer/raytracer.md)
 
 *link to pdfs*
 *screenshots*
 *features*
 
-## [linuwux](/projects/linuwux/linuwux.md)
+## [linuwux](projects/linuwux/linuwux.md)
 
 *...*
 
 # writeups
 
-- [defcamp 2020 : qr-mania](/writeups/defcamp2020-qr-mania/defcamp2020-qr-mania.md)
-- [unbreakable romania online 1 : russiandoll](/writeups/unbreakableromaniaonline1-russiandoll/unbreakableromaniaonline1-russiandoll.md)
-- [pwnable.xyz : welcome](/writeups/pwnablexyz-welcome/pwnablexyz-welcome.md)
-- [pwnable.xyz : sub](/writeups/pwnablexyz-sub/pwnablexyz-sub.md)
+- [defcamp 2020 : qr-mania](writeups/defcamp2020-qr-mania/defcamp2020-qr-mania.md)
+- [unbreakable romania online 1 : russiandoll](writeups/unbreakableromaniaonline1-russiandoll/unbreakableromaniaonline1-russiandoll.md)
+- [pwnable.xyz : welcome](writeups/pwnablexyz-welcome/pwnablexyz-welcome.md)
+- [pwnable.xyz : sub](writeups/pwnablexyz-sub/pwnablexyz-sub.md)
 
 # contacts
 
