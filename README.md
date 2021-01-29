@@ -1,35 +1,33 @@
 # things
 
-## [icarus](projects/icarus/icarus.md)
+## [icarus](projects/icarus/icarus.md): custom archiso profile for CTF players
 
-custom archiso profile for CTF players
+<!-- <div align="center"> -->
+<p>
+    <img width="256" src="projects/icarus/icarus-logo.png">
+</p>
+<!-- </div> -->
 
-*TODO: list of features lol*
+### features
 
-*TODO: screenshots?*
+- [WIP]
+
+## [archer](projects/archer/archer.md): automated arch linux install script
 
 
-## [archer](projects/archer/archer.md)
+<div align="center">
+<p>
+    <!-- <img width="512" src="projects/archer/archer.png"> -->
+</p>
+</div>
 
-automated arch linux install script for brainlets
-
-![archer](projects/archer/archer.png)
 
 ### features
 
 - menu based installer
 - hardware detection
-- -boot mode (bios/uefi) : for bootloader
-- -cpu (intel/amd) : for microcode
-- -gpu (intel/amd/nvidia/nvidia optimus) : for graphics driver
-- -battery : for tlp and battery life optimization
-- -wireless : for tlp-rdw and more battery life optimization
-- -bluetooth : for drivers and optional bluetooth headphone support
-- -ssd : for trimming
 - pacman mirror ranking
 - desktop environment / window manager selection
-- user creation with custom login shell
-- multiple backends for nvidia optimus
 - netcache : use an already existing arch install to speed up the installation
 - archstrike repository
 - add additional packages to the install (aur supported)
@@ -43,30 +41,24 @@ run the following command on the live iso
 curl -s roliboy.ml/archer | bash
 ```
 
-## [rootcow](projects/rootcow/rootcow.md)
+## [rootcow](projects/rootcow/rootcow.md): read-only write privilege escalation using CVE-2016-5195
 
-read-only write privilege escalation using CVE-2016-5195
+- *usage*
 
-*usage*
+## [turbofuck](projects/turbofuck/turbofuck.md): optimizing brainfuck compiler
 
-## [turbofuck](projects/turbofuck/turbofuck.md)
+- *list of features*
+- *benchmark thingies and usage example*
 
-optimizing brainfuck compiler
-
-*list of features*
-*benchmark thingies and usage example*
-
-## [ansify](projects/ansify/ansify.md)
-
-image to ansi rgb escape sequence converter
+## [ansify](projects/ansify/ansify.md): image to ansi rgb escape sequence converter
 
 ![taiga](projects/ansify/taiga.png)
 
 ## [raytracer](projects/raytracer/raytracer.md)
 
-*link to pdfs*
-*screenshots*
-*features*
+- *link to pdfs*
+- *screenshots*
+- *features*
 
 ## [linuwux](projects/linuwux/linuwux.md)
 
