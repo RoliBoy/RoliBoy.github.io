@@ -18,10 +18,6 @@
 
 icarus is intended to be used as a live system, ensuring you have an intact working environment each boot, containing every obscure ctf tool in existence
 
-## but why? [WIP]
-
-because there are tools that still have python2 as a dependency
-
 ## icarus vs kali and parrot [WIP]
 
 both kali and parrot are distributions focused on pentesting so they lack tools frequently used by ctf players. and neither of them is arch based so they are objectively worse
@@ -38,11 +34,9 @@ if you built the iso from source you can just run `make burn`
 - (optional) create persistence partition on the usb flash drive
 ```plaintext
 sudo fdisk /dev/sdX
-
 Command (m for help): n
 Partition number (4-248, default 4): 4
 First sector (4491216-31334336, default 4491264): 4491264
 Last sector, +/-sectors or +/-size{K,M,G,T,P} (4491264-31334336, default 31334336): 31334336
-
 Command (m for help): w
 ```

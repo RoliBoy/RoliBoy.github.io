@@ -58,7 +58,7 @@
 | <kbd>meta</kbd> + <kbd>ctrl</kbd> + <kbd>down</kbd> | shrink active window verically |
 | <kbd>meta</kbd> + <kbd>ctrl</kbd> + <kbd>+</kbd> | increase main stack size in tiling layout |
 | <kbd>meta</kbd> + <kbd>ctrl</kbd> + <kbd>-</kbd> | decrease main stack size in tiling layout |
-| <kbd>meta</kbd> + <kbd>ctrl</kbd> + <kbd>\\</kbd> | switch between floating and tiling layouts |
+| <kbd>meta</kbd> + <kbd>ctrl</kbd> + <kbd>\</kbd> | switch between floating and tiling layouts |
 | <kbd>meta</kbd> + <kbd>ctrl</kbd> + <kbd>F</kbd> | toggle float on all visible windows |
 | **take screenshots** | |
 | <kbd>print</kbd> | open screenshotting tool |
@@ -69,4 +69,9 @@
 
 
 
-## shell abbreviations [WIP]
+## shell abbreviations and aliases [WIP]
+
+| alias | value |
+| - | - |
+| ls | exa |
+| cat | bat |

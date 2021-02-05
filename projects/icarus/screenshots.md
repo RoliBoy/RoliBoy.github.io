@@ -19,5 +19,8 @@
 ### custom cutter color scheme
 ![cutter](screenshots/cutter.png)
 
+### custom burpsuite color scheme
+![burpsuite](screenshots/burpsuite.png)
+
 ### two instances of konsole
 ![konsole](screenshots/konsole.png)
