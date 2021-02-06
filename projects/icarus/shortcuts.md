@@ -73,5 +73,26 @@
 
 | alias | value |
 | - | - |
+| clip | xclip -selection clipboard |
+| cat | bat --pager=never --theme="Dracula" --plain |
+| catn | bat --pager=never --theme="Dracula" --number |--decorations=always'
 | ls | exa |
-| cat | bat |
+| lst | exa -T |
+| la | exa -la |
+| lat | exa -laT |
+| find | fd |
+| finda | fd -uu |
+| du | dust |
+| grep | rg |
+| grepb | rg --binary |
+| top | btm |
+| python | bpython |
+| ps | procs --pager=disable |
+| pst | procs --pager=disable --tree |
+
+## shell keyboard shortcuts
+
+| shortcut | effect |
+| - | - |
+| <kbd>ctrl</kbd> + <kbd>F</kbd> | launch fzf recursively enumerating files and directories |
+| <kbd>ctrl</kbd> + <kbd>R</kbd> | launch fzf with command history |
