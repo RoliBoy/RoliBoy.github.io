@@ -89,6 +89,7 @@
 | python | bpython |
 | ps | procs --pager=disable |
 | pst | procs --pager=disable --tree |
+| vim | nvim |
 
 ## shell keyboard shortcuts
 

@@ -16,11 +16,14 @@
 ### custom wireshark color scheme
 ![wireshark](screenshots/wireshark.png)
 
+### three instances of konsole in auto tiling mode
+![konsole](screenshots/tiling.png)
+
 ### custom cutter color scheme
 ![cutter](screenshots/cutter.png)
 
 ### custom burpsuite color scheme
 ![burpsuite](screenshots/burpsuite.png)
 
-### two instances of konsole
-![konsole](screenshots/konsole.png)
+### kate text editor
+![wireshark](screenshots/kate.png)

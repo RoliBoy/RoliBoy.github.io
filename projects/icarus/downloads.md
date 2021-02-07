@@ -14,4 +14,24 @@
 
 ## downloads [WIP]
 
-- beta 1.0 [WIP] - ~~[download]()~~
+- alpha 1.0 - ~~[download]()~~
+
+### features planned for next release
+- proxy setup for chromium, remove embedded browser from burpsuite
+- android emulator
+- java decompiler
+- kde menu app categories
+- tor browser color scheme
+- volatility
+- ciphey
+- audacity + color scheme
+- torrent client
+- irc client
+- exa color scheme
+- tlp
+- keyboard shortcuts for multi monitor setup
+- elf dissector
+- more compilers and interpreters
+- gnuplot + config / labplot
+- more ctf tools
+- better file associations
