@@ -12,15 +12,17 @@
 </div>
 
 
-## downloads [WIP]
+## downloads
 
-- alpha 1.0 - ~~[download]()~~
+### v1.0-alpha
+- [download](https://mega.nz/file/5AAzyIBJ#bwmGK-CXi3W_4z2k6Grwets7yKtKL7cjRNOc2AGSreY)
+- sha256: `e33d63de802eb7671d6d92182ba384bbcb794ebd198f7c2080e2e2d7b80bdafa`
 
-### features planned for next release
+## features planned for next release
 - proxy setup for chromium, remove embedded browser from burpsuite
 - android emulator
 - java decompiler
-- kde menu app categories
+- kde menu categories
 - tor browser color scheme
 - volatility
 - ciphey
