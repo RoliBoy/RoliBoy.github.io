@@ -12,6 +12,8 @@
 
 ## [raytracer](projects/raytracer/raytracer.md): ray tracer written in C
 
+## [desu](projects/desu/desu.md): sudo used as suffix
+
 ## [linuwux](projects/linuwux/linuwux.md): shared object replacing libc print functions with owo-fied output
 
 # writeups
