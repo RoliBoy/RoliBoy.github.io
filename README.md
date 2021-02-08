@@ -1,12 +1,12 @@
 # things
 
-## [icarus](projects/icarus/icarus.md): custom archiso profile for CTF players
+## [icarus](projects/icarus/icarus.md): archiso profile for CTF players
 
 ## [archer](projects/archer/archer.md): automated arch linux install script
 
 ## [ansify](projects/ansify/ansify.md): image to ansi rgb escape sequence converter
 
-## [rootcow](projects/rootcow/rootcow.md): read-only write privilege escalation using CVE-2016-5195
+## [dirty-cow-toolkit](projects/dirty-cow-toolkit/dirty-cow-toolkit.md): read-only write privilege escalation using CVE-2016-5195
 
 ## [turbofuck](projects/turbofuck/turbofuck.md): optimizing brainfuck compiler
 
