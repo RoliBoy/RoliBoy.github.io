@@ -101,27 +101,18 @@ detect_boot_mode() {
     [[ -d /sys/firmware/efi/efivars ]] && echo UEFI || echo BIOS
 }
 
-# TODO: return unknown if the cpu is neither intel nor amd
 detect_cpu_vendor() {
-    grep -q GenuineIntel /proc/cpuinfo 2>archer.err && echo intel
-    grep -q AuthenticAMD /proc/cpuinfo 2>archer.err && echo amd
+    grep -q GenuineIntel /proc/cpuinfo 2>archer.err && echo intel && return
+    grep -q AuthenticAMD /proc/cpuinfo 2>archer.err && echo amd && return
+    echo unknown
 }
 
-# TODO: rework this
-# TODO: return unknown on empty
+# TODO: add amd
 detect_gpu_configuration() {
-    lspci | grep VGA | grep -i intel && local vga_controller=intel
-    lspci | grep VGA | grep -i amd && local vga_controller=amd
-    lspci | grep 3D | grep -i intel && local gfx_accelerator=intel
-    lspci | grep 3D | grep -i amd && local gfx_accelerator=amd
-    lspci | grep 3D | grep -i nvidia && local gfx_accelerator=nvidia
-
-    [[ $vga_controller = amd ]] && local configuration=amd
-    [[ $vga_controller = intel ]] && local configuration=intel
-    [[ $vga_controller = nvidia ]] && local configuration=nvidia
-    [[ $vga_controller = intel ]] && [[ $gfx_accelerator = nvidia ]] && local configuration=optimus
-
-    echo $configuration
+    lspci | grep VGA | grep -qi intel && lspci | grep 3D | grep -qi nvidia && echo optimus && return
+    lspci | grep VGA | grep -qi intel && echo intel && return
+    lspci | grep VGA | grep -qi nvidia && echo nvidia && return
+    echo unknown
 }
 
 detect_battery() {
@@ -130,7 +121,7 @@ detect_battery() {
 }
 
 detect_wireless() {
-    lspci | grep -i network | grep -qi 'wireless\|WLAN\|wifi\|802\.11' && echo yes || echo no
+    lspci | grep Network | grep -qi 'wireless\|WLAN\|wifi\|802\.11' && echo yes || echo no
 }
 
 detect_bluetooth() {
@@ -295,54 +286,44 @@ download_mirrorlist() {
     done < /etc/pacman.d/mirrorlist
 }
 
-# TODO: rank by file download speed
-# TODO: rework
 rank_mirrors() {
-    echo -ne '' > /tmp/mirrorlist-ranked
+    echo -ne '' > /tmp/mirrorlist
 
     mirrorlist=($(awk '/Server/ { print $3 }' /etc/pacman.d/mirrorlist))
+    # packages=(gcc-fortran-10.2.0-4-x86_64.pkg.tar.zst glibc-2.32-5-x86_64.pkg.tar.zst icu-68.2-1-x86_64.pkg.tar.zst)
+    # TODO: dynamic package selection
+    packages=(bash-5.1.004-1-x86_64.pkg.tar.zst openssl-1.0-1.0.2.u-1-x86_64.pkg.tar.zst sqlite-3.34.0-1-x86_64.pkg.tar.zst)
 
-    for mirror in "${mirrorlist[@]}"; do
-        host=$(grep -o '.*//[^/]*' <<< "$mirror")
-        domain="$(cut -d'/' -f3 <<< $mirror)"
-        index="$(expr $index + 1)"
+    total_downloads=$((${#mirrorlist[@]} * ${#packages[@]}))
+    
+    for i in ${!mirrorlist[@]}; do
+        host=$(grep -o '.*//[^/]*' <<< "${mirrorlist[i]}")
+        let index=$i+1
+        base_url="$(sed 's/$repo/core/g; s/$arch/x86_64/g' <<< ${mirrorlist[i]})"
 
-        ping $domain -c 4 | awk "
-        /time=/ {
-            split(\$(NF-1), time, \"=\");
-            total += time[2];
-            crt++;
-            completed = ((($index - 1) * 4 + crt) / (${#mirrorlist[@]} * 4))
-            progress = int(($current_progress + ${progress[rank_mirrors]} * completed) * 100 / $total_progress)
-            print \"XXX\n\"progress\"\nPinging [$index/${#mirrorlist[@]}] $host - \"time[2]\" ms\nXXX\";
-            fflush(stdout);
-        }
-        END {
-            print total > \"/tmp/ping-result\"
-        }"
+        start_time=$(date +%s%3N)
+        for package_index in ${!packages[@]}; do
+            url="$base_url/${packages[package_index]}"
 
-        pingtime="$(cat /tmp/ping-result)"
+            echo -e 'XXX'
+            echo -e $(((current_progress * 100 + progress[rank_mirrors] * (i * ${#packages[@]} + package_index) * 100 / total_downloads) / total_progress))
+            # TODO: echo download speed
+            echo -e "Testing mirror $host"
+            echo -e 'XXX'
 
-        echo "$pingtime $mirror" >> /tmp/mirrorlist-ranked
+            # TODO: handle timeouts
+            curl -s "$url" -o /dev/null --connect-timeout 2 2>archer.err
+        done
+        total_time=$(($(date +%s%3N) - start_time))
 
-        #url="$(eval echo $mirror)"
+        check_stderr && cat archer.err >> archer.err2
 
-        #echo "$url"
-#        package="$url/icu-1.22.4-3-x86_64.pkg.tar.xz"
-#         $(expr $step \* 100 / ${#execution_order[@]})
-        #groff_rtt="$({ time curl -s "$url/groff-1.22.4-3-x86_64.pkg.tar.xz" -o /dev/null; } 2>&1 | grep real)"
-        #echo "$groff_rtt"
-
-        #icu_rtt="$({ time curl -s "$url/icu-68.2-1-x86_64.pkg.tar.zst" -o /dev/null; } 2>&1 | grep real)"
-        #echo "$icu_rtt"
-
-        #curl https://mirrors.chroot.ro/archlinux/core/os/x86_64/ | grep -shoP '<tr>.*</tr>' | grep '>icu.*zst<'
-
-        #echo -ne '\n\n\n'
+        # TODO: clean up this
+        echo "$total_time Server = ${mirrorlist[i]}" >> /tmp/mirrorlist
     done
-    cat /tmp/mirrorlist-ranked | sort -nk1 | awk '{ print "Server = "$2 }' > /etc/pacman.d/mirrorlist
-    rm /tmp/ping-result
-    rm /tmp/mirrorlist-ranked
+
+    cat /tmp/mirrorlist | sort -k1n | cut -d' ' -f2- > /etc/pacman.d/mirrorlist    
+    rm /tmp/mirrorlist
 #     TODO: debug log
 }
 
@@ -376,7 +357,7 @@ install_pacman_packages() {
 
         networkmanager
 
-        #$([ "$gpu_configuration" = nvidia ] && echo nvidia)
+        $([[ $gpu_configuration = nvidia ]] && echo nvidia)
 
         #$([ "$optimus_backend" = bumblebee ] && echo nvidia)
         #$([ "$optimus_backend" = bumblebee ] && echo bbswitch)
@@ -415,7 +396,7 @@ install_pacman_packages() {
 
     pacstrap /mnt ${packages[@]} 2>/dev/null | awk "
         /^:: Synchronizing package databases\.\.\.$/ {
-            progress = int($current_progress / $total_progress);
+            progress = int($current_progress * 100 / $total_progress);
             print \"XXX\n\"progress\"\nSynchronizing package databases\nXXX\"
         }
         /^Packages \([0-9]*\)/ {
@@ -556,27 +537,25 @@ configure_pacman() {
     sed -i '/VerbosePkgLists/s/^#//g' /mnt/etc/pacman.conf
     sed -i '/VerbosePkgLists/a ILoveCandy' /mnt/etc/pacman.conf
 
-    echo "[INFO]: pacman configured: $(grep -q ILoveCandy /mnt/etc/pacman.conf 2>/dev/null && echo yes || echo no)" >> archer.log
+    info "pacman configured: $(grep -q ILoveCandy /mnt/etc/pacman.conf 2>/dev/null && echo yes || echo no)"
 }
 
-# TODO: modify master file
-# TODO: add auto-cpufreq
 configure_tlp() {
     [[ $optimus_backend = bumblebee ]] && echo 'RUNTIME_PM_DRIVER_BLACKLIST="nouveau nvidia"' > /mnt/etc/tlp.d/10-driver-blacklist.conf
 
-    echo "[INFO]: tlp configured: $(grep -q nvidia /mnt/etc/tlp.d/10-driver-blacklist.conf 2>/dev/null && echo yes || echo no)" >> archer.log
+    info "tlp configured: $(grep -q nvidia /mnt/etc/tlp.d/10-driver-blacklist.conf 2>/dev/null && echo yes || echo no)"
 }
 
 configure_journald() {
     sed -i 's/#SystemMaxUse.*/SystemMaxUse=50M/g' /mnt/etc/systemd/journald.conf
 
-    echo "[INFO]: journald configured: $(grep -q ^SystemMaxUse /mnt/etc/systemd/journald.conf 2>/dev/null && echo yes || echo no)" >> archer.log
+    info "journald configured: $(grep -q ^SystemMaxUse /mnt/etc/systemd/journald.conf 2>/dev/null && echo yes || echo no)"
 }
 
 configure_coredump() {
     sed -i 's/#Storage.*/Storage=none/g' /mnt/etc/systemd/coredump.conf
 
-    echo "[INFO]: coredump configured: $(grep -q ^Storage /mnt/etc/systemd/coredump.conf 2>/dev/null && echo yes || echo no)" >> archer.log
+    info "coredump configured: $(grep -q ^Storage /mnt/etc/systemd/coredump.conf 2>/dev/null && echo yes || echo no)"
 }
 
 # TODO: redirect errors
@@ -587,15 +566,12 @@ create_user() {
         chown -R $username:$username /home/$username && \
         usermod --shell /bin/$login_shell $username"
 
-    [ "$optimus_backend" = bumblebee ] && \
-        arch-chroot /mnt /bin/bash <<< "gpasswd -a $username bumblebee > /dev/null"
+    [[ $optimus_backend = bumblebee ]] && arch-chroot /mnt /bin/bash <<< "gpasswd -a $username bumblebee > /dev/null"
 
-# TODO: check for other properties
-    echo "[INFO]: user created: $(grep $username /mnt/etc/shadow | grep -q '\$6\$' && echo yes || echo no)" >> archer.log
+    info "user created: $(grep $username /mnt/etc/shadow | grep -q '\$6\$' && echo yes || echo no)"
 }
 
 # TODO: redirect errors
-# TODO: debug check
 enable_services() {
     arch-chroot /mnt /bin/bash <<< "systemctl enable NetworkManager.service > /dev/null 2>&1"
 
@@ -631,20 +607,20 @@ enable_archstrike_repository() {
         sed -i '/mirror\.archstrike\.org/c\Include = /etc/pacman.d/archstrike-mirrorlist' /etc/pacman.conf && \
         pacman -Syy > /dev/null 2>&1"
 
-    echo "[INFO]: archstrike repository enabled: $(grep -q archstrike-mirrorlist /mnt/etc/pacman.conf 2>/dev/null && echo yes || echo no)" >> archer.log
+    info "archstrike repository enabled: $(grep -q archstrike-mirrorlist /mnt/etc/pacman.conf 2>/dev/null && echo yes || echo no)"
 }
 
 enable_passwordless_sudo() {
     sed -i '/%wheel ALL=(ALL) NOPASSWD: ALL/s/^# //' /mnt/etc/sudoers
 
-    echo "[INFO]: passwordless sudo enabled: $(grep -q '^%wheel ALL=(ALL) NOPASSWD: ALL$' /mnt/etc/sudoers 2>/dev/null && echo yes || echo no)" >> archer.log
+    info "passwordless sudo enabled: $(grep -q '^%wheel ALL=(ALL) NOPASSWD: ALL$' /mnt/etc/sudoers 2>/dev/null && echo yes || echo no)"
 }
 
 # TODO: handle different display managers
 enable_autologin() {
     if [[ $desktop_environment = 'KDE Plasma' ]]; then
         echo -e "[Autologin]\nUser=$username\nSession=plasma.desktop" > /mnt/etc/sddm.conf.d/autologin.conf
-        echo "[INFO]: autologin enabled: $(grep -q $username /mnt/etc/sddm.conf.d/autologin.conf 2>/dev/null && echo yes || echo no)" >> archer.log
+        info "autologin enabled: $(grep -q $username /mnt/etc/sddm.conf.d/autologin.conf 2>/dev/null && echo yes || echo no)"
     fi
 
     # mkdir /mnt/etc/systemd/getty@tty1.service.d ?
@@ -660,6 +636,7 @@ enable_autologin() {
 # TODO: dual-boot support?
 # TODO: util functions for logging
 # TODO: show log on error
+# TODO: script parameters
 
 echo "[LOG]" > archer.log
 
@@ -675,6 +652,7 @@ set_dialog_colors
 # timedatectl set-ntp true
 # sleep 5
 
+# TODO: backup and restore host mirrorlist
 cp /etc/pacman.conf /etc/pacman.conf.bak
 
 cpu_vendor=$(detect_cpu_vendor)
@@ -817,9 +795,6 @@ description[enable_archstrike_repository]='Enabling archstrike repository'
 description[enable_passwordless_sudo]="Enable passwordless sudo for wheel group"
 description[enable_autologin]="Enabling autologin for $username"
 
-# TODO: merge arrays
-# TODO: conditions to skip optional features
-# TODO: convert to cummulative values
 declare -A progress
 progress[create_partitions]=100
 progress[download_mirrorlist]=100
@@ -852,8 +827,8 @@ done
 execution_order=(
     create_partitions
     download_mirrorlist
-    $([ "$feature_rank_mirrors" = yes ] && echo rank_mirrors)
-    $([ "$feature_netcache" = yes ] && echo enable_netcache)
+    $([[ $feature_rank_mirrors = yes ]] && echo rank_mirrors)
+    $([[ $feature_netcache = yes ]] && echo enable_netcache)
     install_pacman_packages
     install_aur_packages
     install_bootloader
@@ -863,18 +838,16 @@ execution_order=(
     configure_network
     set_root_password
     configure_pacman
-    $([ "$has_battery" = yes ] && echo configure_tlp)
+    $([[ $has_battery = yes ]] && echo configure_tlp)
     configure_journald
     configure_coredump
     create_user
     enable_services
-    $([ "$feature_archstrike_repository" = yes ] && echo enable_archstrike_repository)
-    $([ "$feature_passwordless_sudo" = yes ] && echo enable_passwordless_sudo)
-    $([ "$feature_autologin" = yes ] && echo enable_autologin)
+    $([[ $feature_archstrike_repository = yes ]] && echo enable_archstrike_repository)
+    $([[ $feature_passwordless_sudo = yes ]] && echo enable_passwordless_sudo)
+    $([[ $feature_autologin = yes ]] && echo enable_autologin)
 )
 
-#TODO: replace this, it worked fine for older versions but now it needs a rework
-#'concatenate' progress bars
 current_progress=0
 for step in ${execution_order[@]}; do
     echo -e "XXX"
@@ -883,16 +856,10 @@ for step in ${execution_order[@]}; do
     echo -e "XXX"
     $step
     let current_progress+=${progress[$step]}
-    # :thinking_face:
-    # echo -e "XXX"
-    # echo -e "$(($current_progress * 100 / $total_progress))"
-    # echo -e "${description[$step]}"
-    # echo -e "XXX"
-    # 
 done | whiptail --title "Progress" --gauge "Initializing" 0 $((`tput cols` * 3 / 4)) 0
 
 mv /etc/pacman.conf.bak /etc/pacman.conf
 
 whiptail --title 'Show log' --yesno "Show installation log?" 0 0 3>&1 1>&2 2>&3
 
-[ $? = 0 ] && whiptail --title 'archer.log' --textbox archer.log 0 0 3>&1 1>&2 2>&3
+[[ $? = 0 ]] && whiptail --title 'archer.log' --textbox archer.log 0 0 3>&1 1>&2 2>&3

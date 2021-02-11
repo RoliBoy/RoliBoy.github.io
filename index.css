@@ -44,7 +44,7 @@
 
     --container-max-width: 1180px;
     --container-normal-width: 800px;
-    --container-medium-width: 700px; 
+    --container-medium-width: 700px;
     --container-small-width: 500px;
 
     --gutter-huge: 12rem;
@@ -180,7 +180,7 @@ p {
 }
 
 @media(max-width: 900px) {
-    p { 
+    p {
         max-width: var(--container-small-width);
     }
 }
@@ -407,8 +407,8 @@ body:not(.user-is-tabbing) a:focus {
 
 
 .header {
-    background: linear-gradient(rgba(40, 42, 54, .6), rgba(40, 42, 54, 1)), 
-        url('./images/header.jpg');
+    background: linear-gradient(rgba(40, 42, 54, .6), rgba(40, 42, 54, 1)),
+    url('./images/header.jpg');
     height: 100vh;
     background-size: cover;
     background-position: center;
@@ -542,27 +542,27 @@ body:not(.user-is-tabbing) a:focus {
 /* --------------------------------------- */
 /* ----- writeups ----- */
 /* --------------------------------------- */
-/* 
+/*
 .client__logos {
-    display: flex;
-    justify-content: space-between;
-    filter: invert(100%) grayscale(100%) opacity(.8);
+display: flex;
+justify-content: space-between;
+filter: invert(100%) grayscale(100%) opacity(.8);
 }
 
 .client__logo {
-    height: 6.5rem;
-    max-width: 18rem;
+height: 6.5rem;
+max-width: 18rem;
 }
 
 @media(max-width: 1240px) {
-    .client__logos {
-        overflow-x: scroll;
-        padding: var(--gutter-normal);
-    }
+.client__logos {
+overflow-x: scroll;
+padding: var(--gutter-normal);
+}
 
-    .client__logo:not(:last-of-type) {
-        margin-right: var(--gutter-medium);
-    }
+.client__logo:not(:last-of-type) {
+margin-right: var(--gutter-medium);
+}
 } */
 
 
@@ -638,7 +638,7 @@ body:not(.user-is-tabbing) a:focus {
     .about-text {
         flex: 0 0 35%;
     }
-    
+
     .about-photo-container {
         flex: 1;
         margin: 0 var(--gutter-huge) 0 0;
@@ -680,7 +680,7 @@ body:not(.user-is-tabbing) a:focus {
 @media(max-width: 500px) {
     .footer {
         padding: var(--gutter-medium) 0;
-    } 
+    }
 }
 
 /* width */
@@ -690,17 +690,17 @@ body:not(.user-is-tabbing) a:focus {
 
 /* Track */
 ::-webkit-scrollbar-track {
-    background: rgb(40, 42, 54); 
+    background: rgb(40, 42, 54);
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: rgb(68, 71, 90); 
+    background: rgb(68, 71, 90);
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-    background: rgb(98, 114, 164); 
+    background: rgb(98, 114, 164);
 }
 
 
