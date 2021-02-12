@@ -16,7 +16,7 @@
 
     <body>
         <header class="header" role="banner">
-            <!-- <canvas id="canvas"></canvas> -->
+            <div id="canvas"></div>
             <div class="row">
                 <nav class="nav" role="navigation">
                     <ul class="nav-items">
@@ -72,27 +72,27 @@
                                         </a>
                                     </div>
                             </div>
-                            <div class="project-images">
-                                <div class="project-image slides-icarus fade">
+                            <div class="project-images" id="slides-icarus">
+                                <div class="project-image fade">
                                     <img src="images/icarus/icarus-logo.png" />
                                 </div>
-                                <div class="project-image slides-icarus fade">
+                                <div class="project-image fade">
                                     <img src="images/icarus/tiling.png" />
                                     <div class="text">Three console windows in automatic tiling mode</div>
                                 </div>
-                                <div class="project-image slides-icarus fade">
+                                <div class="project-image fade">
                                     <img src="images/icarus/wireshark.png" />
                                     <div class="text">Custom wireshark color scheme</div>
                                 </div>
-                                <div class="project-image slides-icarus fade">
+                                <div class="project-image fade">
                                     <img src="images/icarus/cutter.png" />
                                     <div class="text">Custom cutter color scheme</div>
                                 </div>
-                                <div class="project-image slides-icarus fade">
+                                <div class="project-image fade">
                                     <img src="images/icarus/burpsuite.png" />
                                     <div class="text">Custom burpsuite color scheme</div>
                                 </div>
-                                <div class="project-image slides-icarus fade">
+                                <div class="project-image fade">
                                     <img src="images/icarus/kate.png" />
                                     <div class="text">Kate text editor</div>
                                 </div>
@@ -122,48 +122,88 @@
                                 </div>
                             </div>
 
-                            <div class="project-images">
-                                <div class="project-image slides-archer fade">
+                            <div class="project-images" id="slides-archer">
+                                <div class="project-image fade">
                                     <img src="images/archer/archer-logo.png" />
                                 </div>
-                                <div class="project-image slides-archer fade">
+                                <div class="project-image fade">
                                     <img src="images/archer/timezone-selection.png" />
                                     <div class="text">Timezone selection</div>
                                 </div>
-                                <div class="project-image slides-archer fade">
+                                <div class="project-image fade">
                                     <img src="images/archer/default-shell-selection.png" />
                                     <div class="text">Default shell selection</div>
                                 </div>
-                                <div class="project-image slides-archer fade">
+                                <div class="project-image fade">
                                     <img src="images/archer/hostname-input.png" />
                                     <div class="text">Hostname input</div>
                                 </div>
-                                <div class="project-image slides-archer fade">
+                                <div class="project-image fade">
                                     <img src="images/archer/password-input.png" />
                                     <div class="text">Password input</div>
                                 </div>
-                                <div class="project-image slides-archer fade">
+                                <div class="project-image fade">
                                     <img src="images/archer/optional-features-selection.png" />
                                     <div class="text">Optional features selection</div>
                                 </div>
-                                <div class="project-image slides-archer fade">
+                                <div class="project-image fade">
                                     <img src="images/archer/de-wm-selection.png" />
                                     <div class="text">DE/WM selection</div>
                                 </div>
-                                <div class="project-image slides-archer fade">
+                                <div class="project-image fade">
                                     <img src="images/archer/mirrorlist-ranking.png" />
                                     <div class="text">Mirrorlist ranking</div>
                                 </div>
-                                <div class="project-image slides-archer fade">
+                                <div class="project-image fade">
                                     <img src="images/archer/downloading-packages.png" />
                                     <div class="text">Downloading packages</div>
                                 </div>
-                                <div class="project-image slides-archer fade">
+                                <div class="project-image fade">
                                     <img src="images/archer/installing-packages.png" />
                                     <div class="text">Installing packages</div>
                                 </div>
                                 <a class="prev" onclick="slidePrev('slides-archer')">&#10094;</a>
                                 <a class="next" onclick="slideNext('slides-archer')">&#10095;</a>
+                            </div>
+                        </div>
+
+                        <div class="project-box">
+                            <div class="project-text">
+                                <h3>ansify</h3>
+                                <p>image to ansi escape sequence converter</p>
+                                <!-- <p>tools included for</p>
+                                    <ul class="project-list">
+                                    <li>pwn</li>
+                                    <li>re</li>
+                                    <li>forensics</li>
+                                    </ul> -->
+                                    <div class="project-links">
+                                        <a href="https://placeholder.com/" class="link-text">
+                                            Visit Site <span>&rarr;</span>
+                                        </a>
+                                        <a href="https://github.com/roliboy/ansify" target="_blank" title="View Source Code">
+                                            <img src="images/github.svg" class="project-github" alt="github" />
+                                        </a>
+                                    </div>
+                            </div>
+                            <div class="project-images" id="slides-ansify">
+                                <div class="project-image fade">
+                                    <img src="images/ansify/ansify.png" />
+                                </div>
+                                <div class="project-image fade">
+                                    <img src="images/ansify/ansify.gif" />
+                                    <div class="text">Ansify logo getting converted</div>
+                                </div>
+                                <div class="project-image fade">
+                                    <img src="images/ansify/guyfawkes.gif" />
+                                    <div class="text">Converting an image using <code>curl | bash</code></div>
+                                </div>
+                                <div class="project-image fade">
+                                    <img src="images/ansify/taiga.png" />
+                                    <div class="text">Higher resolution pixel art</div>
+                                </div>
+                                <a class="prev" onclick="slidePrev('slides-ansify')">&#10094;</a>
+                                <a class="next" onclick="slideNext('slides-ansify')">&#10095;</a>
                             </div>
                         </div>
 
@@ -287,6 +327,7 @@
                 </p>
             </div>
         </footer>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.2.0/p5.min.js"></script>
         <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r125/three.min.js"></script> -->
         <script src="index.js"></script>
     </body>
