@@ -39,24 +39,6 @@ check_stderr() {
 
 set_terminal_colors() {
     setterm -blank 0 -powersave off
-#     material
-#     echo -ne "\e]P02e3436" #black
-#     echo -ne "\e]P8555753" #darkgrey
-#     echo -ne "\e]P1cc0000" #darkred
-#     echo -ne "\e]P9ef2929" #red
-#     echo -ne "\e]P24e9a06" #darkgreen
-#     echo -ne "\e]PA8ae234" #green
-#     echo -ne "\e]P3c4a000" #brown
-#     echo -ne "\e]PBfce94f" #yellow
-#     echo -ne "\e]P43465a4" #darkblue
-#     echo -ne "\e]PC729fcf" #blue
-#     echo -ne "\e]P575507b" #darkmagenta
-#     echo -ne "\e]PDad7fa8" #magenta
-#     echo -ne "\e]P606989a" #darkcyan
-#     echo -ne "\e]PE34e2e2" #cyan
-#     echo -ne "\e]P7d3d7cf" #lightgrey
-#     echo -ne "\e]PFeeeeec" #white
-#     dracula
     echo -ne "\e]P0282a36" #black
     echo -ne "\e]P814151b" #darkgrey
     echo -ne "\e]P1ff2222" #darkred
@@ -130,7 +112,7 @@ detect_bluetooth() {
 }
 
 detect_ssd() {
-    grep 0 /sys/block/*/queue/rotational 2>archer.err && echo yes || echo no
+    grep -q 0 /sys/block/*/queue/rotational 2>archer.err && echo yes || echo no
 }
 
 get_drive() {
@@ -333,24 +315,28 @@ enable_netcache() {
     info "netcache repository added to pacman.conf: $(grep -q netcache /etc/pacman.conf && echo yes || echo no)"
 }
 
-install_pacman_packages() {
-    local packages=(
+install_packages() {
+    local aur_packages=(
+        $([[ $desktop_environment = dwm ]] && echo dwm)
+#         $([ "$optimus_backend" = optimus-manager ] && echo optimus-manager)
+        ${extra_packages_aur[@]}
+    )
+
+    local official_packages=(
         base
         sudo
 
         make
         patch
 
-        fakeroot
-        binutils
+        $([[ ${#aur_packages[@]} != 0 ]] && echo fakeroot)
+        $([[ ${#aur_packages[@]} != 0 ]] && echo binutils)
 
-# TODO: something about this?
+#         pkgconf?
+#         gcc?
 
-        pkgconf
-        gcc
-
-#         linux
-#         linux-firmware
+        linux
+        linux-firmware
 
         $([[ $cpu_vendor = intel ]] && echo intel-ucode)
         $([[ $cpu_vendor = amd ]] && echo amd-ucode)
@@ -384,6 +370,8 @@ install_pacman_packages() {
         $([[ $desktop_environment = i3 ]] && echo i3-gaps xorg-server xorg-xinit)
 
         $([[ $desktop_environment = 'KDE Plasma' ]] && echo bluedevil breeze-gtk kde-gtk-config kdeplasma-addons kgamma5 khotkeys kinfocenter kscreen kwayland-integration kwrited plasma-browser-integration plasma-desktop plasma-disks plasma-nm plasma-pa plasma-thunderbolt plasma-vault plasma-workspace plasma-workspace-wallpapers powerdevil sddm-kcm xdg-desktop-portal-kde)
+        
+#         bluedevil breeze breeze-gtk kactivitymanagerd kde-cli-tools kdecoration kde-gtk-config kdeplasma-addons kgamma5 khotkeys kinfocenter kmenuedit kscreen kscreenlocker ksshaskpass ksysguard kwallet-pam kwayland-integration kwayland-server kwin kwrited plasma-browser-integration plasma-desktop plasma-disks plasma-integration plasma-nm plasma-pa plasma-thunderbolt plasma-vault plasma-workspace plasma-workspace-wallpapers polkit-kde-agent powerdevil sddm-kcm systemsettings xdg-desktop-portal-kde
 
         #$([ "$feature_bluetooth_audio" = yes ] && echo pulseaudio-bluetooth)
 
@@ -392,11 +380,17 @@ install_pacman_packages() {
         ${extra_packages_official[@]}
     )
 
-    for package in ${packages[@]}; do info "package: $package"; done
+    for package in ${official_packages[@]}; do info "package: $package"; done
+    
 
-    pacstrap /mnt ${packages[@]} 2>/dev/null | awk "
+    pacstrap /mnt ${official_packages[@]} 2>/dev/null | awk "
+        BEGIN {
+            current = $current_progress;
+            weight = ${progress[install_packages]} * $([[ ${#aur_packages[@]} == 0 ]] && echo 1 || echo 0.6);
+            scale = 100 / $total_progress;
+        }
         /^:: Synchronizing package databases\.\.\.$/ {
-            progress = int($current_progress * 100 / $total_progress);
+            progress = int(current * scale);
             print \"XXX\n\"progress\"\nSynchronizing package databases\nXXX\"
         }
         /^Packages \([0-9]*\)/ {
@@ -404,25 +398,25 @@ install_pacman_packages() {
         }
         /^downloading .*\.pkg\.tar.*\.\.\.$/ {
             dlindex++;
-            progress = int(($current_progress + (${progress[install_pacman_packages]} * 0.4) * dlindex / total) * 100 / $total_progress);
+            progress = int((current + 0.4 * weight * dlindex / total) * scale);
             print \"XXX\n\"progress\"\nDownloading \"substr(\$2, 1, match(\$2, /\.pkg\.tar.*/) - 1)\"\nXXX\"
         }
         /^checking .*\.\.\.$/ {
-            progress = int(($current_progress + (${progress[install_pacman_packages]} * 0.4)) * 100 / $total_progress);
+            progress = int((current + 0.4 * weight) * scale);
             print \"XXX\n\"progress\"\nC\"substr(\$0, 2, length(\$0) - 4)\"\nXXX\"
         }
         /^installing .*\.\.\.$/ {
             insindex++;
-            progress = int(($current_progress + (${progress[install_pacman_packages]} * 0.4) + (${progress[install_pacman_packages]} * 0.4) * insindex / total) * 100 / $total_progress);
+            progress = int((current + 0.4 * weight + 0.4 * weight * insindex / total) * scale);
             print \"XXX\n\"progress\"\nInstalling \"substr(\$2, 1, length(\$2) - 3)\"\nXXX\"
         }
         /^:: Running post-transaction hooks\.\.\.$/ {
-            progress = int(($current_progress + ${progress[install_pacman_packages]}) * 0.8 / $total_progress);
+            progress = int((current + 0.8 * weight) * scale);
             print \"XXX\n\"progress\"\nRunning post-transaction hooks\nXXX\"
         }
         /^\([ 0-9]+\/[0-9]+\)/ {
             percentage = (int(substr(\$0, 2, index(\$0, \"/\") - 2)) / int(substr(\$0, index(\$0, \"/\") + 1, index(\$0, \")\") - index(\$0, \"/\") - 1)));
-            progress = int(($current_progress + (${progress[install_pacman_packages]} * 0.80) + (${progress[install_pacman_packages]} * 0.20) * percentage) * 100 / $total_progress);
+            progress = int((current + 0.8 * weight + 0.2 * weight * percentage) * scale);
             message = substr(\$0, index(\$0, \")\") + 2);
             print \"XXX\n\"progress\"\n\"substr(message, 0, length(message) - 3)\"\nXXX\"
         }
@@ -430,30 +424,24 @@ install_pacman_packages() {
             fflush(stdout)
         }
     "
-}
+    
+    
+    # TODO: remove helper after installation
 
-# TODO: AUR dependency checks
-# TODO: progress feedback
-install_aur_packages() {
-    local packages=(
-        $([[ $desktop_environment = dwm ]] && echo dwm)
-#         $([ "$optimus_backend" = optimus-manager ] && echo optimus-manager)
-        ${extra_packages_aur[@]}
-    )
-
-#     TODO: remove helper after installation
-    [[ ${#packages[@]} = 0 ]] && return
-
-    for package in ${packages[@]}; do info "AUR package: $package"; done
+    [[ ${#aur_packages[@]} = 0 ]] && return
+    
+#     for package in ${aur_packages[@]}; do info "AUR package: $package"; done
 
     sed -i '/^root.*/a nobody ALL=(ALL) NOPASSWD: ALL' /mnt/etc/sudoers
 
-    # TODO: rework this kek
     # TODO: progress feedback
-    local command="$(for i in $(seq 0 $(expr ${#packages[@]} - 1)); do
-        echo "echo -e 'XXX\n$(expr $i \* 100 / ${#packages[@]})\nInstalling ${packages[$i]}\nXXX' &&"
-        echo "sudo -u nobody bash -c 'HOME=/tmp; yay -S ${packages[$i]} --noconfirm >/dev/null 2>&1' &&"
-    done) :"
+    # TODO: replace yay
+    local command="$(for i in $(seq 0 $(expr ${#aur_packages[@]} - 1)); do
+        echo "echo -e 'XXX\n$(awk "BEGIN{print int(($current_progress + 0.6 * ${progress[install_packages]} + ($i / ${#aur_packages[@]}) * 0.4 * ${progress[install_packages]}) * 100 / $total_progress)}")\nInstalling ${aur_packages[$i]}\nXXX' &&"
+        echo "sudo -u nobody bash -c 'HOME=/tmp; yay -S ${aur_packages[$i]} --noconfirm >/dev/null 2>&1' &&"
+    done)"
+    
+    echo -e "XXX\n$(awk "BEGIN{print int(($current_progress + 0.6 * ${progress[install_packages]}) * 100 / $total_progress)}")\nInitializing AUR build system\nXXX"
 
     arch-chroot /mnt /bin/bash <<< "cd /tmp &&
         curl -sO https://aur.archlinux.org/cgit/aur.git/snapshot/yay-bin.tar.gz >/dev/null 2>&1 &&
@@ -463,12 +451,14 @@ install_aur_packages() {
         cd /tmp &&
         rm yay-bin.tar.gz &&
         rm -rf yay-bin &&
-        $command"
+        $command
+        pacman -Rns --noconfirm yay-bin"
 
     sed -i '/^nobody.*/d' /mnt/etc/sudoers
 
-    # TODO: check each individual package
-    info "aur packages installed: $(arch-chroot /mnt /bin/bash <<< 'pacman -Qm | wc -l')"
+    for package in ${aur_packages[@]}; do
+        info "AUR package '$package': $(arch-chroot /mnt /bin/bash <<< "pacman -Qs ^$package$ >/dev/null && echo installed || echo not installed")"
+    done
 }
 
 #TODO: other bootloader options
@@ -566,29 +556,31 @@ create_user() {
         chown -R $username:$username /home/$username && \
         usermod --shell /bin/$login_shell $username"
 
-    [[ $optimus_backend = bumblebee ]] && arch-chroot /mnt /bin/bash <<< "gpasswd -a $username bumblebee > /dev/null"
+    [[ $optimus_backend = bumblebee ]] && arch-chroot /mnt /bin/bash <<< "gpasswd -a $username bumblebee >/dev/null"
 
     info "user created: $(grep $username /mnt/etc/shadow | grep -q '\$6\$' && echo yes || echo no)"
 }
 
 # TODO: redirect errors
 enable_services() {
-    arch-chroot /mnt /bin/bash <<< "systemctl enable NetworkManager.service > /dev/null 2>&1"
+    arch-chroot /mnt /bin/bash <<< "systemctl enable NetworkManager.service >/dev/null 2>&1"
+    
+    [[ $feature_bluetooth_audio = yes ]] arch-chroot /mnt /bin/bash <<< "systemctl enable bluetooth.service >/dev/null 2>&1"
 
-    [[ $has_battery = yes ]] && arch-chroot /mnt /bin/bash <<< "systemctl enable tlp.service > /dev/null 2>&1"
+    [[ $has_battery = yes ]] && arch-chroot /mnt /bin/bash <<< "systemctl enable tlp.service >/dev/null 2>&1"
 
     [[ $has_battery = yes ]] && [[ $has_wireless = yes ]] && \
-        arch-chroot /mnt /bin/bash <<< "systemctl enable NetworkManager-dispatcher.service > /dev/null 2>&1 && \
-            systemctl mask systemd-rfkill.service > /dev/null 2>&1 && \
-            systemctl mask systemd-rfkill.socket > /dev/null 2>&1"
+        arch-chroot /mnt /bin/bash <<< "systemctl enable NetworkManager-dispatcher.service >/dev/null 2>&1 && \
+            systemctl mask systemd-rfkill.service >/dev/null 2>&1 && \
+            systemctl mask systemd-rfkill.socket >/dev/null 2>&1"
 
-    [[ $has_ssd = yes ]] && arch-chroot /mnt /bin/bash <<< "systemctl enable fstrim.timer > /dev/null 2>&1"
-    [[ $optimus_backend = optimus ]] && arch-chroot /mnt /bin/bash <<< "systemctl enable bumblebeed.service > /dev/null 2>&1"
-    [[ $optimus_backend = optimus-manager ]] && arch-chroot /mnt /bin/bash <<< "systemctl enable optimus-manager.service > /dev/null 2>&1"
+    [[ $has_ssd = yes ]] && arch-chroot /mnt /bin/bash <<< "systemctl enable fstrim.timer >/dev/null 2>&1"
+    [[ $optimus_backend = optimus ]] && arch-chroot /mnt /bin/bash <<< "systemctl enable bumblebeed.service >/dev/null 2>&1"
+    [[ $optimus_backend = optimus-manager ]] && arch-chroot /mnt /bin/bash <<< "systemctl enable optimus-manager.service >/dev/null 2>&1"
 
     [[ $desktop_environment = dwm ]] && echo 'exec dwm' > "/mnt/home/$username/.xinitrc"
     [[ $desktop_environment = i3 ]] && echo 'exec i3' > "/mnt/home/$username/.xinitrc"
-    [[ $desktop_environment = 'KDE Plasma' ]] && arch-chroot /mnt /bin/bash <<< "systemctl enable sddm.service"
+    [[ $desktop_environment = 'KDE Plasma' ]] && arch-chroot /mnt /bin/bash <<< "systemctl enable sddm.service >/dev/null 2>&1"
 }
 
 enable_archstrike_repository() {
@@ -630,12 +622,9 @@ enable_autologin() {
     fi
 }
 
-# TODO: redirect errors to file
 # TODO: send shutdown signal to netcache
 # TODO: improve aur debug log
 # TODO: dual-boot support?
-# TODO: util functions for logging
-# TODO: show log on error
 # TODO: script parameters
 
 echo "[LOG]" > archer.log
@@ -648,12 +637,12 @@ info "boot mode: $boot_mode"
 set_terminal_colors
 set_dialog_colors
 
-# systemctl stop reflector
-# timedatectl set-ntp true
-# sleep 5
+systemctl stop reflector
+timedatectl set-ntp true
+sleep 5
 
-# TODO: backup and restore host mirrorlist
 cp /etc/pacman.conf /etc/pacman.conf.bak
+cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak
 
 cpu_vendor=$(detect_cpu_vendor)
 info "cpu vendor: $cpu_vendor"
@@ -777,8 +766,8 @@ description[create_partitions]="Creating partitions on $selected_drive"
 description[download_mirrorlist]='Downloading mirrorlist'
 description[rank_mirrors]='Ranking mirrors'
 description[enable_netcache]='Enabling netcache'
-description[install_pacman_packages]='Installing pacman packages'
-description[install_aur_packages]='Installing AUR packages'
+description[install_packages]='Installing packages'
+# description[install_aur_packages]='Installing AUR packages'
 description[install_bootloader]='Installing bootloader'
 description[generate_fstab]='Generating fstab'
 description[generate_locale]='Generating locale'
@@ -800,9 +789,9 @@ progress[create_partitions]=100
 progress[download_mirrorlist]=100
 [[ $feature_rank_mirrors = yes ]] && progress[rank_mirrors]=10000
 [[ $feature_netcache = yes ]] && progress[enable_netcache]=100
-progress[install_pacman_packages]=20000
+progress[install_packages]=20000
 # condition for this
-progress[install_aur_packages]=100
+# progress[install_aur_packages]=100
 progress[install_bootloader]=200
 progress[generate_fstab]=100
 progress[generate_locale]=500
@@ -829,8 +818,8 @@ execution_order=(
     download_mirrorlist
     $([[ $feature_rank_mirrors = yes ]] && echo rank_mirrors)
     $([[ $feature_netcache = yes ]] && echo enable_netcache)
-    install_pacman_packages
-    install_aur_packages
+    install_packages
+#     install_aur_packages
     install_bootloader
     generate_fstab
     generate_locale
@@ -859,6 +848,7 @@ for step in ${execution_order[@]}; do
 done | whiptail --title "Progress" --gauge "Initializing" 0 $((`tput cols` * 3 / 4)) 0
 
 mv /etc/pacman.conf.bak /etc/pacman.conf
+mv /etc/pacman.d/mirrorlist.bak /etc/pacman.d/mirrorlist
 
 whiptail --title 'Show log' --yesno "Show installation log?" 0 0 3>&1 1>&2 2>&3
 

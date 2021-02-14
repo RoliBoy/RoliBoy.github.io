@@ -1,335 +1,369 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
-        <link rel="shortcut icon" type="image/png" href="images/favicon.png" />
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+    <link rel="shortcut icon" type="image/png" href="images/favicon.png" />
 
-        <title>roliboy's homepage</title>
+    <title>roliboy's homepage</title>
 
-        <meta name="description" content="certified brainlet" />
-        <meta name="keywords" content="Nagy Roland, roliboy, ctf writeups, ctf, linux" />
-        <link rel="stylesheet" href="index.css" />
-    </head>
+    <meta name="description" content="certified brainlet" />
+    <meta name="keywords" content="Nagy Roland, roliboy, ctf writeups, ctf, linux" />
+    <link rel="stylesheet" href="index.css" />
+</head>
 
 
-    <body>
-        <header class="header" role="banner">
-            <div id="canvas"></div>
+<body>
+    <header class="header" role="banner">
+        <div id="canvas"></div>
+        <div class="row">
+            <nav class="nav" role="navigation">
+                <ul class="nav-items">
+                    <li class="nav-item">
+                        <a href="#projects" class="nav-link">Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#writeups" class="nav-link">Writeups</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#about" class="nav-link">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#contact" class="nav-link">Contact</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="header-text-box row">
+            <div class="header-text">
+                <h1 class="heading-primary">
+                    <span>roliboy</span>
+                </h1>
+                <p>1337 h4x0r, ctf player and certified brainlet</p>
+                <!-- <a href="#contact" class="btn btn--pink">Get in touch</a> -->
+            </div>
+        </div>
+    </header>
+
+
+    <main role="main">
+        <section class="projects" id="projects">
             <div class="row">
-                <nav class="nav" role="navigation">
-                    <ul class="nav-items">
-                        <li class="nav-item">
-                            <a href="#projects" class="nav-link">Projects</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#writeups" class="nav-link">Writeups</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#about" class="nav-link">About</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#contact" class="nav-link">Contact</a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-            <div class="header-text-box row">
-                <div class="header-text">
-                    <h1 class="heading-primary">
-                        <span>roliboy</span>
-                    </h1>
-                    <p>1337 h4x0r, ctf player and certified brainlet</p>
-                    <!-- <a href="#contact" class="btn btn--pink">Get in touch</a> -->
-                </div>
-            </div>
-        </header>
+                <h2>Projects</h2>
+                <div class="project-boxes">
 
-
-        <main role="main">
-            <section class="projects" id="projects">
-                <div class="row">
-                    <h2>Projects</h2>
-                    <div class="project-boxes">
-
-                        <div class="project-box">
-                            <div class="project-text">
-                                <h3>icarus os</h3>
-                                <p>linux distribution for ctf players</p>
-                                <!-- <p>tools included for</p>
+                    <div class="project-box">
+                        <div class="project-text">
+                            <h3>icarus os</h3>
+                            <p>linux distribution for ctf players</p>
+                            <!-- <p>tools included for</p>
                                     <ul class="project-list">
                                     <li>pwn</li>
                                     <li>re</li>
                                     <li>forensics</li>
                                     </ul> -->
-                                    <div class="project-links">
-                                        <a href="https://placeholder.com/" class="link-text">
-                                            Visit Site <span>&rarr;</span>
-                                        </a>
-                                        <a href="https://github.com/roliboy/icarus" target="_blank" title="View Source Code">
-                                            <img src="images/github.svg" class="project-github" alt="github" />
-                                        </a>
-                                    </div>
+                            <div class="project-links">
+                                <a href="https://placeholder.com/" class="link-text">
+                                    Visit Site <span>&rarr;</span>
+                                </a>
+                                <a href="https://github.com/roliboy/icarus" target="_blank" title="View Source Code">
+                                    <img src="images/github.svg" class="project-github" alt="github" />
+                                </a>
                             </div>
-                            <div class="project-images" id="slides-icarus">
-                                <div class="project-image fade">
-                                    <img src="images/icarus/icarus-logo.png" />
-                                </div>
-                                <div class="project-image fade">
-                                    <img src="images/icarus/tiling.png" />
-                                    <div class="text">Three console windows in automatic tiling mode</div>
-                                </div>
-                                <div class="project-image fade">
-                                    <img src="images/icarus/wireshark.png" />
-                                    <div class="text">Custom wireshark color scheme</div>
-                                </div>
-                                <div class="project-image fade">
-                                    <img src="images/icarus/cutter.png" />
-                                    <div class="text">Custom cutter color scheme</div>
-                                </div>
-                                <div class="project-image fade">
-                                    <img src="images/icarus/burpsuite.png" />
-                                    <div class="text">Custom burpsuite color scheme</div>
-                                </div>
-                                <div class="project-image fade">
-                                    <img src="images/icarus/kate.png" />
-                                    <div class="text">Kate text editor</div>
-                                </div>
-                                <a class="prev" onclick="slidePrev('slides-icarus')">&#10094;</a>
-                                <a class="next" onclick="slideNext('slides-icarus')">&#10095;</a>
+                        </div>
+                        <div class="project-images" id="slides-icarus">
+                            <div class="project-image fade">
+                                <img src="images/icarus/icarus-logo.png" />
+                            </div>
+                            <div class="project-image fade">
+                                <img src="images/icarus/tiling.png" />
+                                <div class="text">Three console windows in automatic tiling mode</div>
+                            </div>
+                            <div class="project-image fade">
+                                <img src="images/icarus/wireshark.png" />
+                                <div class="text">Custom wireshark color scheme</div>
+                            </div>
+                            <div class="project-image fade">
+                                <img src="images/icarus/cutter.png" />
+                                <div class="text">Custom cutter color scheme</div>
+                            </div>
+                            <div class="project-image fade">
+                                <img src="images/icarus/burpsuite.png" />
+                                <div class="text">Custom burpsuite color scheme</div>
+                            </div>
+                            <div class="project-image fade">
+                                <img src="images/icarus/kate.png" />
+                                <div class="text">Kate text editor</div>
+                            </div>
+                            <a class="prev" onclick="slidePrev('slides-icarus')">&#10094;</a>
+                            <a class="next" onclick="slideNext('slides-icarus')">&#10095;</a>
+                        </div>
+                    </div>
+
+                    <div class="project-box">
+                        <div class="project-text">
+                            <h3>archer</h3>
+                            <p>automated installer for arch linux</p>
+                            <ul class="project-list">
+                                <li>hardware detection</li>
+                                <li>mirror ranking</li>
+                                <li>de/wm selection</li>
+                                <li>automatic configuration</li>
+                                <li><code>curl roliboy.ml/archer | bash</code></li>
+                            </ul>
+                            <div class="project-links">
+                                <a href="https://placeholder.com/" class="link-text">
+                                    Visit Site <span>&rarr;</span>
+                                </a>
+                                <a href="https://github.com/roliboy/archer" target="_blank" title="View Source Code">
+                                    <img src="images/github.svg" class="project-github" alt="github">
+                                </a>
                             </div>
                         </div>
 
-                        <div class="project-box">
-                            <div class="project-text">
-                                <h3>archer</h3>
-                                <p>automated installer for arch linux</p>
-                                <ul class="project-list">
-                                    <li>hardware detection</li>
-                                    <li>mirror ranking</li>
-                                    <li>de/wm selection</li>
-                                    <li>automatic configuration</li>
-                                    <li><code>curl roliboy.ml/archer | bash</code></li>
-                                </ul>
-                                <div class="project-links">
-                                    <a href="https://placeholder.com/" class="link-text">
-                                        Visit Site <span>&rarr;</span>
-                                    </a>
-                                    <a href="https://github.com/roliboy/archer" target="_blank" title="View Source Code">
-                                        <img src="images/github.svg" class="project-github" alt="github">
-                                    </a>
-                                </div>
+                        <div class="project-images" id="slides-archer">
+                            <div class="project-image fade">
+                                <img src="images/archer/archer-logo.png" />
                             </div>
-
-                            <div class="project-images" id="slides-archer">
-                                <div class="project-image fade">
-                                    <img src="images/archer/archer-logo.png" />
-                                </div>
-                                <div class="project-image fade">
-                                    <img src="images/archer/timezone-selection.png" />
-                                    <div class="text">Timezone selection</div>
-                                </div>
-                                <div class="project-image fade">
-                                    <img src="images/archer/default-shell-selection.png" />
-                                    <div class="text">Default shell selection</div>
-                                </div>
-                                <div class="project-image fade">
-                                    <img src="images/archer/hostname-input.png" />
-                                    <div class="text">Hostname input</div>
-                                </div>
-                                <div class="project-image fade">
-                                    <img src="images/archer/password-input.png" />
-                                    <div class="text">Password input</div>
-                                </div>
-                                <div class="project-image fade">
-                                    <img src="images/archer/optional-features-selection.png" />
-                                    <div class="text">Optional features selection</div>
-                                </div>
-                                <div class="project-image fade">
-                                    <img src="images/archer/de-wm-selection.png" />
-                                    <div class="text">DE/WM selection</div>
-                                </div>
-                                <div class="project-image fade">
-                                    <img src="images/archer/mirrorlist-ranking.png" />
-                                    <div class="text">Mirrorlist ranking</div>
-                                </div>
-                                <div class="project-image fade">
-                                    <img src="images/archer/downloading-packages.png" />
-                                    <div class="text">Downloading packages</div>
-                                </div>
-                                <div class="project-image fade">
-                                    <img src="images/archer/installing-packages.png" />
-                                    <div class="text">Installing packages</div>
-                                </div>
-                                <a class="prev" onclick="slidePrev('slides-archer')">&#10094;</a>
-                                <a class="next" onclick="slideNext('slides-archer')">&#10095;</a>
+                            <div class="project-image fade">
+                                <img src="images/archer/timezone-selection.png" />
+                                <div class="text">Timezone selection</div>
                             </div>
+                            <div class="project-image fade">
+                                <img src="images/archer/default-shell-selection.png" />
+                                <div class="text">Default shell selection</div>
+                            </div>
+                            <div class="project-image fade">
+                                <img src="images/archer/hostname-input.png" />
+                                <div class="text">Hostname input</div>
+                            </div>
+                            <div class="project-image fade">
+                                <img src="images/archer/password-input.png" />
+                                <div class="text">Password input</div>
+                            </div>
+                            <div class="project-image fade">
+                                <img src="images/archer/optional-features-selection.png" />
+                                <div class="text">Optional features selection</div>
+                            </div>
+                            <div class="project-image fade">
+                                <img src="images/archer/de-wm-selection.png" />
+                                <div class="text">DE/WM selection</div>
+                            </div>
+                            <div class="project-image fade">
+                                <img src="images/archer/mirrorlist-ranking.png" />
+                                <div class="text">Mirrorlist ranking</div>
+                            </div>
+                            <div class="project-image fade">
+                                <img src="images/archer/downloading-packages.png" />
+                                <div class="text">Downloading packages</div>
+                            </div>
+                            <div class="project-image fade">
+                                <img src="images/archer/installing-packages.png" />
+                                <div class="text">Installing packages</div>
+                            </div>
+                            <a class="prev" onclick="slidePrev('slides-archer')">&#10094;</a>
+                            <a class="next" onclick="slideNext('slides-archer')">&#10095;</a>
                         </div>
+                    </div>
 
-                        <div class="project-box">
-                            <div class="project-text">
-                                <h3>ansify</h3>
-                                <p>image to ansi escape sequence converter</p>
-                                <!-- <p>tools included for</p>
+                    <div class="project-box">
+                        <div class="project-text">
+                            <h3>ansify</h3>
+                            <p>image to ansi escape sequence converter</p>
+                            <!-- <p>tools included for</p>
                                     <ul class="project-list">
                                     <li>pwn</li>
                                     <li>re</li>
                                     <li>forensics</li>
                                     </ul> -->
-                                    <div class="project-links">
-                                        <a href="https://placeholder.com/" class="link-text">
-                                            Visit Site <span>&rarr;</span>
-                                        </a>
-                                        <a href="https://github.com/roliboy/ansify" target="_blank" title="View Source Code">
-                                            <img src="images/github.svg" class="project-github" alt="github" />
-                                        </a>
-                                    </div>
-                            </div>
-                            <div class="project-images" id="slides-ansify">
-                                <div class="project-image fade">
-                                    <img src="images/ansify/ansify.png" />
-                                </div>
-                                <div class="project-image fade">
-                                    <img src="images/ansify/ansify.gif" />
-                                    <div class="text">Ansify logo getting converted</div>
-                                </div>
-                                <div class="project-image fade">
-                                    <img src="images/ansify/guyfawkes.gif" />
-                                    <div class="text">Converting an image using <code>curl | bash</code></div>
-                                </div>
-                                <div class="project-image fade">
-                                    <img src="images/ansify/taiga.png" />
-                                    <div class="text">Higher resolution pixel art</div>
-                                </div>
-                                <a class="prev" onclick="slidePrev('slides-ansify')">&#10094;</a>
-                                <a class="next" onclick="slideNext('slides-ansify')">&#10095;</a>
+                            <div class="project-links">
+                                <a href="https://placeholder.com/" class="link-text">
+                                    Visit Site <span>&rarr;</span>
+                                </a>
+                                <a href="https://github.com/roliboy/ansify" target="_blank" title="View Source Code">
+                                    <img src="images/github.svg" class="project-github" alt="github" />
+                                </a>
                             </div>
                         </div>
-
+                        <div class="project-images" id="slides-ansify">
+                            <div class="project-image fade">
+                                <img src="images/ansify/ansify.png" />
+                            </div>
+                            <div class="project-image fade">
+                                <img src="images/ansify/ansify.gif" />
+                                <div class="text">Ansify logo getting converted</div>
+                            </div>
+                            <div class="project-image fade">
+                                <img src="images/ansify/guyfawkes.gif" />
+                                <div class="text">Converting an image using <code>curl | bash</code></div>
+                            </div>
+                            <div class="project-image fade">
+                                <img src="images/ansify/taiga.png" />
+                                <div class="text">Higher resolution pixel art</div>
+                            </div>
+                            <a class="prev" onclick="slidePrev('slides-ansify')">&#10094;</a>
+                            <a class="next" onclick="slideNext('slides-ansify')">&#10095;</a>
+                        </div>
                     </div>
-                </div>
-            </section>
 
-            <section class="client" id="writeups">
-                <div class="row">
-                    <h2>Writeups</h2>
-                    <div class="writeup-boxes">
-
-                        <div class="writeup-box">
-                            <div class="writeup-text">
-                                <h3>[defcamp 2020] qr-mania</h3>
-                                <p>image manipulation, exif data and pcap resource extraction</p>
-                                <ul class="writeup-list">
-                                    <li>Categories: [network, misc, programming]</li>
-                                    <li>Points: 50 (dynamic)</li>
-                                    <li>Solves: 75</li>
-                                    <li>Difficulty: medium</li>
-                                </ul>
-                                <div class="writeup-links">
-                                    <a href="https://placeholder.com/" class="link-text">
-                                        Read writeup <span>&rarr;</span>
-                                    </a>
-                                    <a href="https://placeholder.com/" target="_blank" class="link-text writeup-site">
-                                        Go to challenge website <span>&rarr;</span>
-                                    </a>
-                                </div>
+                    <div class="project-box">
+                        <div class="project-text">
+                            <h3>raytracer</h3>
+                            <p>software ray tracer written in C, following the books from <a href="https://raytracing.github.io/" target="_blank">here</a></p>
+                            <p>with some additional features like:</p>
+                            <ul class="project-list">
+                                <li>realtime output to window using SDL</li>
+                                <li>multithreaded rendering</li>
+                                <li>scene loading from files</li>
+                                <li>AVX256 intrinsics</li>
+                            </ul>
+                            <div class="project-links">
+                                <a href="https://placeholder.com/" class="link-text">
+                                    Visit Site <span>&rarr;</span>
+                                </a>
+                                <a href="https://github.com/roliboy/ansify" target="_blank" title="View Source Code">
+                                    <img src="images/github.svg" class="project-github" alt="github" />
+                                </a>
                             </div>
                         </div>
+                        <div class="project-images" id="slides-raytracer">
+                            <div class="project-image fade">
+                                <img src="images/raytracer/balls.png" />
+                                <div class="text">metal, dielectric and diffuse spheres</div>
+                            </div>
+                            <div class="project-image fade">
+                                <img src="images/raytracer/squares.png" />
+                                <div class="text">textures, subsurface scattering, fog and motion blur</div>
+                            </div>
+                            <a class="prev" onclick="slidePrev('slides-raytracer')">&#10094;</a>
+                            <a class="next" onclick="slideNext('slides-raytracer')">&#10095;</a>
+                        </div>
+                    </div>
 
-                        <div class="writeup-box">
-                            <div class="writeup-text">
-                                <h3>[pwnable.xyz] sub</h3>
-                                <p>libc format string, signed vs unsigned comparison instructions in assembly</p>
-                                <ul class="writeup-list">
-                                    <li>Category: [pwn, reversing]</li>
-                                    <li>Points: 50 (fixed)</li>
-                                    <li>Solves: 928 (at the time of writing)</li>
-                                    <li>Difficulty: easy</li>
-                                </ul>
-                                <div class="writeup-links">
-                                    <a href="https://placeholder.com/" class="link-text">
-                                        Read writeup <span>&rarr;</span>
-                                    </a>
-                                    <a href="https://placeholder.com/" target="_blank" class="link-text writeup-site">
-                                        Go to challenge website <span>&rarr;</span>
-                                    </a>
-                                </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="client" id="writeups">
+            <div class="row">
+                <h2>Writeups</h2>
+                <div class="writeup-boxes">
+
+                    <div class="writeup-box">
+                        <div class="writeup-text">
+                            <h3>[defcamp 2020] qr-mania</h3>
+                            <p>image manipulation, exif data and pcap resource extraction</p>
+                            <ul class="writeup-list">
+                                <li>Categories: [network, misc, programming]</li>
+                                <li>Points: 50 (dynamic)</li>
+                                <li>Solves: 75</li>
+                                <li>Difficulty: medium</li>
+                            </ul>
+                            <div class="writeup-links">
+                                <a href="https://placeholder.com/" class="link-text">
+                                    Read writeup <span>&rarr;</span>
+                                </a>
+                                <a href="https://placeholder.com/" target="_blank" class="link-text writeup-site">
+                                    Go to challenge website <span>&rarr;</span>
+                                </a>
                             </div>
                         </div>
-
                     </div>
-                </div>
-            </section>
 
-            <section class="about" id="about">
-                <div class="row">
-                    <h2>About Me</h2>
-                    <div class="about-content">
-
-                        <div class="about-text">
-                            <p>big brain hacker</p>
-                            <a href="#" class="btn">My Resume</a>
+                    <div class="writeup-box">
+                        <div class="writeup-text">
+                            <h3>[pwnable.xyz] sub</h3>
+                            <p>libc format string, signed vs unsigned comparison instructions in assembly</p>
+                            <ul class="writeup-list">
+                                <li>Category: [pwn, reversing]</li>
+                                <li>Points: 50 (fixed)</li>
+                                <li>Solves: 928 (at the time of writing)</li>
+                                <li>Difficulty: easy</li>
+                            </ul>
+                            <div class="writeup-links">
+                                <a href="https://placeholder.com/" class="link-text">
+                                    Read writeup <span>&rarr;</span>
+                                </a>
+                                <a href="https://placeholder.com/" target="_blank" class="link-text writeup-site">
+                                    Go to challenge website <span>&rarr;</span>
+                                </a>
+                            </div>
                         </div>
-
-                        <div class="about-photo-container">
-                            <img src="images/profile.png" />
-                        </div>
-
                     </div>
-                </div>
-            </section>
 
-            <section class="contact" id="contact">
-                <div class="row">
-                    <h2>Get in Touch</h2>
-                    <div class="contact-info">
-                        <p>
+                </div>
+            </div>
+        </section>
+
+        <section class="about" id="about">
+            <div class="row">
+                <h2>About Me</h2>
+                <div class="about-content">
+
+                    <div class="about-text">
+                        <p>big brain hacker</p>
+                        <a href="#" class="btn">My Resume</a>
+                    </div>
+
+                    <div class="about-photo-container">
+                        <img src="images/profile.png" />
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="contact" id="contact">
+            <div class="row">
+                <h2>Get in Touch</h2>
+                <div class="contact-info">
+                    <p>
                         paragraph that will convince you that i'm the best man for the job
-                        </p>
-                        <a href="mailto:roliboy@protonmail.com" class="btn">roliboy@protonmail.com</a>
-                    </div>
+                    </p>
+                    <a href="mailto:roliboy@protonmail.com" class="btn">roliboy@protonmail.com</a>
                 </div>
-            </section>
-        </main>
+            </div>
+        </section>
+    </main>
 
-        <footer role="contentinfo" class="footer">
-            <div class="row">
-                <ul class="footer-social-links">
-                    <!-- <li class="footer-social-link-item">
+    <footer role="contentinfo" class="footer">
+        <div class="row">
+            <ul class="footer-social-links">
+                <!-- <li class="footer-social-link-item">
                         <a href="https://twitter.com/nisarhassan12/" title="Link to Twitter Profile">
                         <img src="images/twitter.svg" class="footer-social-image" alt="Twitter">
                         </a>
                         </li> -->
-                        <li class="footer-social-link-item">
-                            <a href="https://github.com/roliboy/" title="Link to Github Profile">
-                                <img src="images/github.svg" class="footer-social-image" alt="github">
-                            </a>
-                        </li>
-                        <!-- <li class="footer-social-link-item">
+                <li class="footer-social-link-item">
+                    <a href="https://github.com/roliboy/" title="Link to Github Profile">
+                        <img src="images/github.svg" class="footer-social-image" alt="github">
+                    </a>
+                </li>
+                <!-- <li class="footer-social-link-item">
                             <a href="https://codepen.io/nisar_hassan" title="Link to Codepen Profile">
                             <img src="images/codepen.svg" class="footer-social-image" alt="Codepen">
                             </a>
                             </li> -->
-                            <li class="footer-social-link-item">
-                                <a href="https://www.linkedin.com/in/nagy-roland-713874206/">
-                                    <img src="images/linkedin.svg" title="Link to Linkedin Profile" class="footer-social-image"
-                                                                                                    alt="linkedin">
-                                </a>
-                            </li>
-                </ul>
+                <li class="footer-social-link-item">
+                    <a href="https://www.linkedin.com/in/nagy-roland-713874206/">
+                        <img src="images/linkedin.svg" title="Link to Linkedin Profile" class="footer-social-image"
+                            alt="linkedin">
+                    </a>
+                </li>
+            </ul>
 
-                <p style="text-align:left;">
+            <p style="text-align:left;">
                 &copy; 2021 roliboy
                 <span style="float:right;">
                     template stolen from <a href="https://nisar.dev" class="link">Nisar</a>
                 </span>
-                </p>
-            </div>
-        </footer>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.2.0/p5.min.js"></script>
-        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r125/three.min.js"></script> -->
-        <script src="index.js"></script>
-    </body>
+            </p>
+        </div>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.2.0/p5.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r125/three.min.js"></script> -->
+    <script src="index.js"></script>
+</body>
 
 </html>
