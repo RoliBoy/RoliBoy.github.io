@@ -365,7 +365,7 @@ body:not(.user-is-tabbing) a:focus {
 }
 
 .section-text {
-    margin-right: var(--gutter-huge);
+    /* margin-right: var(--gutter-huge); */
 }
 
 .section-list {

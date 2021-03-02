@@ -473,7 +473,7 @@ body:not(.user-is-tabbing) a:focus {
 
 .project-text {
     flex: 0 0 30%;
-    margin-right: 5em;
+    /* margin-right: 5em; */
 }
 
 .project-list {
@@ -603,7 +603,7 @@ margin-right: var(--gutter-medium);
 
 .writeup-text {
     flex: 0 0 30%;
-    margin-right: 5em;
+    /* margin-right: 5em; */
 }
 
 .writeup-list {
