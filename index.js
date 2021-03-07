@@ -1,4 +1,3 @@
-//TODO: make this dynamic
 slideStates = [...document.getElementsByClassName('project-images')].reduce((o, k) => ({...o, [k.id]: 0}), {});
 [...document.getElementsByClassName('project-images')].forEach(div => div.children[0].style.display = 'block');
 

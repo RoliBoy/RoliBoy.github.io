@@ -1,21 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
     <link rel="shortcut icon" type="image/png" href="images/favicon.png" />
-
     <title>defcamp2020-qr-mania</title>
-
     <meta name="description" content="defcamp 2020 qr mania writeup" />
     <meta name="keywords" content="roliboy, serotonin_undefined, ctf writeups, ctf, defcamp2020, qr mania" />
     <link rel="stylesheet" href="index.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/dracula.min.css" />
 </head>
-
 <body>
-
     <header class="header" role="heading">
         <div class="header-text-box row">
             <div class="header-text">
@@ -28,7 +23,6 @@
             </div>
         </div>
     </header>
-
     <main role="main">
         <section class="description" id="description">
             <div class="row">
@@ -68,7 +62,6 @@ The challenge was proposed by BIT SENTINEL.</code></pre>
                 </ul>
             </div>
         </section>
-
         <section class="writeup" id="writeup">
             <div class="row">
                 <h2>Writeup</h2>
@@ -98,10 +91,11 @@ The challenge was proposed by BIT SENTINEL.</code></pre>
                         </p>
                     </div>
                 </div>
-
                 <div class="section-box">
                     <div class="section-text">
-                        <h3>extracting the order from the exif data</h3>
+                        <h3>
+                            extracting the order from the exif data
+                        </h3>
                         <p>
                             turns out the position of each character is stored in the exif data of the corresponding
                             image
@@ -122,7 +116,6 @@ order.txt</code></pre>
                         </p>
                     </div>
                 </div>
-
                 <div class="section-box">
                     <div class="section-text">
                         <h3>decoding the qr codes</h3>
@@ -155,7 +148,6 @@ with open("order.txt") as order:
     print()</code></pre>
                     </div>
                 </div>
-
                 <div class="section-box">
                     <div class="section-text">
                         <h3>obtaining the flag</h3>
@@ -166,19 +158,41 @@ with open("order.txt") as order:
                             class="section-code"><code>CTF{2b2e8580cdf35896d75bfc4b1bafff6ee90f6c525da3b9a26dd7726bf2171396}</code></pre>
                     </div>
                 </div>
-
             </div>
         </section>
+    </main>
+    <footer role="contentinfo" class="footer">
+        <div class="row">
+            <p style="text-align:left;">
+                &copy; 2021 roliboy
+            </p>
+        </div>
+    </footer>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/highlight.min.js"></script> -->
+    <script>
+        slideStates = [...document.getElementsByClassName('project-images')].reduce((o, k) => ({...o, [k.id]: 0}), {});
+[...document.getElementsByClassName('project-images')].forEach(div => div.children[0].style.display = 'block');
 
-        <footer role="contentinfo" class="footer">
-            <div class="row">
-                <p style="text-align:left;">
-                    &copy; 2021 roliboy
-                </p>
-            </div>
-        </footer>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/highlight.min.js"></script>
-        <script>hljs.highlightAll();</script>
+function slidePrev(slideGroupName) {
+  slideStates[slideGroupName]--
+  let slides = [...document.getElementById(slideGroupName).children].filter(e => e.classList.contains("project-image"))
+  if (slideStates[slideGroupName] < 0)
+    slideStates[slideGroupName] = slides.length - 1
+  for (let slide of slides)
+    slide.style.display = 'none'
+  slides[slideStates[slideGroupName]].style.display = 'block'
+}
+
+function slideNext(slideGroupName) {
+  slideStates[slideGroupName]++
+  let slides = [...document.getElementById(slideGroupName).children].filter(e => e.classList.contains("project-image"))
+  if (slideStates[slideGroupName] >= slides.length)
+    slideStates[slideGroupName] = 0
+  for (let slide of slides)
+    slide.style.display = 'none'
+  slides[slideStates[slideGroupName]].style.display = 'block'
+}
+
+    </script>
 </body>
-
 </html>

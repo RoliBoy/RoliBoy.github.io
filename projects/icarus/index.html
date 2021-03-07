@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+    <link rel="shortcut icon" type="image/png" href="images/favicon.png" />
+    <title>icarus</title>
+    <meta name="description" content="linux distribution for ctf players" />
+    <meta name="keywords" content="icarus os, icarus, ctf, ctf linux distribution, linux distribution, ctf linux distro, linux distro" />
+    <link rel="stylesheet" href="index.css" />
+</head>
+<body>
+    <header class="header" role="banner">
+        <div id="canvas"></div>
+        <div class="row">
+            <nav class="nav" role="navigation">
+                <ul class="nav-items">
+                    <li class="nav-item">
+                        <a href="#screenshots" class="nav-link">Screenshots</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#packages" class="nav-link">Tool list</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#shortcuts" class="nav-link">Keyboard shortcuts</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#download" class="nav-link">Downloads</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="header-text-box row">
+            <div class="header-text">
+                <h1 class="heading-primary">
+                    <span>Icarus OS</span>
+                </h1>
+                <p>linux distribution for ctf players</p>
+                <a href="#download" class="btn btn--pink">Download</a>
+            </div>
+        </div>
+    </header>
+    <main role="main">
+        <section class="screenshots" id="screenshots">
+            <div class="row">
+                <h2>Screenshots</h2>
+                <div class="project-boxes">
+                    <div class="project-box">
+                        <div class="about-text">
+                            <h3>Automatic widow tiling</h3>
+                        </div>
+                        <div class="about-photo-container">
+                            <img src="images/tiling.png" />
+                        </div>
+                    </div>
+                    <div class="project-box">
+                        <div class="about-text">
+                            <h3>Custom burpsuite theme</h3>
+                        </div>
+                        <div class="about-photo-container">
+                            <img src="images/burpsuite.png" />
+                        </div>
+                    </div>
+                    <div class="project-box">
+                        <div class="about-text">
+                            <h3>Custom cutter theme</h3>
+                        </div>
+                        <div class="about-photo-container">
+                            <img src="images/cutter.png" />
+                        </div>
+                    </div>
+                    <div class="project-box">
+                        <div class="about-text">
+                            <h3>Custom wireshark theme</h3>
+                        </div>
+                        <div class="about-photo-container">
+                            <img src="images/wireshark.png" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="packages" id="packages">
+            <div class="row">
+                <h2>Tool list</h2>
+                <div class="writeup-box">
+                    <div class="writeup-text">
+                        <h3>binary, reversing and pwn</h3>
+                        <table>
+                            <tr>
+                                <td>pwndbg</td>
+                                <td>gdb extension</td>
+                            </tr>
+                            <tr>
+                                <td>cutter</td>
+                                <td>gui for radare</td>
+                            </tr>
+                            <tr>
+                                <td>checksec</td>
+                                <td>check binaries for securtity features</td>
+                            </tr>
+                            <tr>
+                                <td>ltrace</td>
+                                <td>trace library calls</td>
+                            </tr>
+                            <tr>
+                                <td>strace</td>
+                                <td>trace system calls</td>
+                            </tr>
+                            <tr>
+                                <td>ropgadget</td>
+                                <td>search gadgets in binaries for reverse oriented programming exploits</td>
+                            </tr>
+                            <tr>
+                                <td>pwntools</td>
+                                <td>python library that facilitates exploit developement</td>
+                            </tr>
+                            <tr>
+                                <td>heaptrack</td>
+                                <td>heap memory analyzer</td>
+                            </tr>
+                            <tr>
+                                <td>qemu</td>
+                                <td>machine emulator and virtualizer</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="writeup-box">
+                    <div class="writeup-text">
+                        <h3>steganography and forensics</h3>
+                        <table>
+                            <tr>
+                                <td>exiftool</td>
+                                <td>extract meta information from files</td>
+                            </tr>
+                            <tr>
+                                <td>binwalk</td>
+                                <td>find embedded files in binaries</td>
+                            </tr>
+                            <tr>
+                                <td>ciphey</td>
+                                <td>automated decryption tool (which is not working atm)</td>
+                            </tr>
+                            <tr>
+                                <td>testdisk</td>
+                                <td>recover deleted files</td>
+                            </tr>
+                            <tr>
+                                <td>volatility</td>
+                                <td>memory forensics (currently broken)</td>
+                            </tr>
+                            <tr>
+                                <td>filelight</td>
+                                <td>disk usage information</td>
+                            </tr>
+                            <tr>
+                                <td>hexedit</td>
+                                <td>hex editor</td>
+                            </tr>
+                            <tr>
+                                <td>okteta</td>
+                                <td>gui hex editor</td>
+                            </tr>
+                            <tr>
+                                <td>audacity</td>
+                                <td>audio analysis</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="writeup-box">
+                    <div class="writeup-text">
+                        <h3>network and pentest</h3>
+                        <table>
+                            <tr>
+                                <td>nmap</td>
+                                <td>host discovery</td>
+                            </tr>
+                            <tr>
+                                <td>netcat</td>
+                                <td>read and write across network connections</td>
+                            </tr>
+                            <tr>
+                                <td>wireshark</td>
+                                <td>packet analyzer</td>
+                            </tr>
+                            <tr>
+                                <td>tcpdump</td>
+                                <td>packet analyzer</td>
+                            </tr>
+                            <tr>
+                                <td>burpsuite</td>
+                                <td>http/s request interceptor</td>
+                            </tr>
+                            <tr>
+                                <td>gobuster</td>
+                                <td>directory enumeration tool</td>
+                            </tr>
+                            <tr>
+                                <td>john</td>
+                                <td>password cracker</td>
+                            </tr>
+                            <tr>
+                                <td>hydra</td>
+                                <td>newtork login bruteforcer</td>
+                            </tr>
+                            <tr>
+                                <td>metasploit</td>
+                                <td>penetration testing platform</td>
+                            </tr>
+                            <tr>
+                                <td>rockyou</td>
+                                <td>list of commonly used passwords</td>
+                            </tr>
+                            <tr>
+                                <td>dirbuster</td>
+                                <td>rdlists | list of directories</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="writeup-box">
+                    <div class="writeup-text">
+                        <h3>command line utilities</h3>
+                        <table>
+                            <tr>
+                                <td>bat</td>
+                                <td>cat alternative with syntax highlighting</td>
+                            </tr>
+                            <tr>
+                                <td>exa</td>
+                                <td>ls alternative with syntax highlighting</td>
+                            </tr>
+                            <tr>
+                                <td>fd</td>
+                                <td>find alternative with simpler parameters</td>
+                            </tr>
+                            <tr>
+                                <td>dust</td>
+                                <td>du alternative with more readable output</td>
+                            </tr>
+                            <tr>
+                                <td>ripgrep</td>
+                                <td>grep alternative</td>
+                            </tr>
+                            <tr>
+                                <td>tokei</td>
+                                <td>source code composition analyzer</td>
+                            </tr>
+                            <tr>
+                                <td>hyperfine</td>
+                                <td>benchmark tool</td>
+                            </tr>
+                            <tr>
+                                <td>bottom</td>
+                                <td>top alternative</td>
+                            </tr>
+                            <tr>
+                                <td>tealdeer</td>
+                                <td>man alternative</td>
+                            </tr>
+                            <tr>
+                                <td>bandwhich</td>
+                                <td>real time information about network utilization</td>
+                            </tr>
+                            <tr>
+                                <td>rsync</td>
+                                <td>remote and local file copying tool</td>
+                            </tr>
+                            <tr>
+                                <td>zoxide</td>
+                                <td>cd alternative</td>
+                            </tr>
+                            <tr>
+                                <td>bpython</td>
+                                <td>python repl with syntax highlighting and autocompletion</td>
+                            </tr>
+                            <tr>
+                                <td>procs</td>
+                                <td>ps alternative</td>
+                            </tr>
+                            <tr>
+                                <td>sd</td>
+                                <td>sed alternative</td>
+                            </tr>
+                            <tr>
+                                <td>fzf</td>
+                                <td>fuzzy finder</td>
+                            </tr>
+                            <tr>
+                                <td>htop</td>
+                                <td>process information</td>
+                            </tr>
+                            <tr>
+                                <td>neofetch</td>
+                                <td>system information</td>
+                            </tr>                            
+                        </table>
+                    </div>
+                </div>
+                <div class="writeup-box">
+                    <div class="writeup-text">
+                        <h3>desktop environment</h3>
+                        <table>
+                            <tr>
+                                <td>desktop environment</td>
+                                <td>kde plasma</td>
+                            </tr>
+                            <tr>
+                                <td>window manager</td>
+                                <td>kwin with krohnkite tiling extension</td>
+                            </tr>
+                            <tr>
+                                <td>terminal emulator</td>
+                                <td>konsole</td>
+                            </tr>
+                            <tr>
+                                <td>file explorer</td>
+                                <td>dolphin</td>
+                            </tr>
+                            <tr>
+                                <td>web browser</td>
+                                <td>ungoogled chromium with adblock, darkreader and plasma integration</td>
+                            </tr>
+                            <tr>
+                                <td>web browser</td>
+                                <td>tor browser</td>
+                            </tr>
+                            <tr>
+                                <td>document viewer</td>
+                                <td>okular</td>
+                            </tr>
+                            <tr>
+                                <td>image editor</td>
+                                <td>krita</td>
+                            </tr>
+                            <tr>
+                                <td>archive manager</td>
+                                <td>ark</td>
+                            </tr>
+                            <tr>
+                                <td>code editor / ide</td>
+                                <td>visual studio code</td>
+                            </tr>
+                            <tr>
+                                <td>lightweight code editor</td>
+                                <td>kate</td>
+                            </tr>
+                            <tr>
+                                <td>terminal code editor</td>
+                                <td>neovim with plugins</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="shortcuts" id="shortcuts">
+            <div class="row">
+                <h2>Shortcuts</h2>
+                <div class="writeup-box">
+                    <div class="writeup-text">
+                        <h3>window manager shortcuts [WIP]</h3>
+                        <table>
+                            <tr>
+                                <td><kbd>meta</kbd></td>
+                                <td>open application dashboard</td>
+                            </tr>
+                            <tr>
+                                <td><kbd>meta</kbd> + <kbd>space</kbd></td>
+                                <td>open clipboard history</td>
+                            </tr>
+                            <tr>
+                                <td><kbd>meta</kbd> + <kbd>return</kbd></td>
+                                <td>open terminal</td>
+                            </tr>
+                            <tr>
+                                <td><kbd>meta</kbd> + <kbd>E</kbd></td>
+                                <td>open file explorer</td>
+                            </tr>
+                            <tr>
+                                <td><kbd>meta</kbd> + <kbd>W</kbd></td>
+                                <td>open web browser</td>
+                            </tr>
+                            <tr>
+                                <td><kbd>meta</kbd> + <kbd>Q</kbd></td>
+                                <td>close active window</td>
+                            </tr>
+                            <tr>
+                                <td><kbd>meta</kbd> + <kbd>shift</kbd> + <kbd>Q</kbd></td>
+                                <td>kill active window</td>
+                            </tr>
+                            <tr>
+                                <td><kbd>meta</kbd> + <kbd>F11</kbd></td>
+                                <td>fullscreen active window</td>
+                            </tr>
+                            <tr>
+                                <td><kbd>meta</kbd> + <kbd>+</kbd></td>
+                                <td>zoom in</td>
+                            </tr>
+                            <tr>
+                                <td><kbd>meta</kbd> + <kbd>-</kbd></td>
+                                <td>zoom out</td>
+                            </tr>
+                            <tr>
+                                <td><kbd>meta</kbd> + <kbd>D</kbd></td>
+                                <td>show desktop</td>
+                            </tr>
+                            <tr>
+                                <td><kbd>meta</kbd> + <kbd>shift</kbd> + <kbd>return</kbd></td>
+                                <td>set current window as master</td>
+                            </tr>
+                            <tr>
+                                <td><kbd>meta</kbd> + <kbd>tab</kbd></td>
+                                <td>walk through windows</td>
+                            </tr>
+                            <tr>
+                                <td><kbd>meta</kbd> + <kbd>shift</kbd> + <kbd>tab</kbd></td>
+                                <td>present all windows</td>
+                            </tr>
+                            <tr>
+                                <td><kbd>meta</kbd> + <kbd>1</kbd></td>
+                                <td>switch to workspace 1</td>
+                            </tr>
+                            <tr>
+                                <td><kbd>meta</kbd> + <kbd>2</kbd></td>
+                                <td>switch to workspace 2</td>
+                            </tr>
+                            <tr>
+                                <td><kbd>meta</kbd> + <kbd>3</kbd></td>
+                                <td>switch to workspace 3</td>
+                            </tr>
+                            <tr>
+                                <td><kbd>meta</kbd> + <kbd>4</kbd></td>
+                                <td>switch to workspace 4</td>
+                            </tr>
+                            <tr>
+                                <td><kbd>meta</kbd> + <kbd>`</kbd></td>
+                                <td>show all workspaces</td>
+                            </tr>
+                            <tr>
+                                <td><kbd>meta</kbd> + <kbd>left</kbd></td>
+                                <td>focus window to the left of the current active window</td>
+                            </tr>
+                            <tr>
+                                <td><kbd>meta</kbd> + <kbd>right</kbd></td>
+                                <td>focus window to the right of the current active window</td>
+                            </tr>
+                            <tr>
+                                <td><kbd>meta</kbd> + <kbd>up</kbd></td>
+                                <td>focus window above the current active window</td>
+                            </tr>
+                            <tr>
+                                <td><kbd>meta</kbd> + <kbd>down</kbd></td>
+                                <td>focus window below the current active window</td>
+                            </tr>
+                            <tr>
+                                <td><kbd>meta</kbd> + <kbd>shift</kbd> + <kbd>1</kbd></td>
+                                <td>move focused window to workspace 1</td>
+                            </tr>
+                            <tr>
+                                <td><kbd>meta</kbd> + <kbd>shift</kbd> + <kbd>2</kbd></td>
+                                <td>move focused window to workspace 2</td>
+                            </tr>
+                            <tr>
+                                <td><kbd>meta</kbd> + <kbd>shift</kbd> + <kbd>3</kbd></td>
+                                <td>move focused window to workspace 3</td>
+                            </tr>
+                            <tr>
+                                <td><kbd>meta</kbd> + <kbd>shift</kbd> + <kbd>4</kbd></td>
+                                <td>move focused window to workspace 4</td>
+                            </tr>
+                            <tr>
+                                <td><kbd>meta</kbd> + <kbd>shift</kbd> + <kbd>`</kbd></td>
+                                <td>pin focused window to all workspaces</td>
+                            </tr>
+                            <tr>
+                                <td><kbd>meta</kbd> + <kbd>shift</kbd> + <kbd>right</kbd></td>
+                                <td>swap focused window with the one to its right</td>
+                            </tr>
+                            <tr>
+                                <td><kbd>meta</kbd> + <kbd>shift</kbd> + <kbd>left</kbd></td>
+                                <td>swap focused window with the one to its left</td>
+                            </tr>
+                            <tr>
+                                <td><kbd>meta</kbd> + <kbd>shift</kbd> + <kbd>up</kbd></td>
+                                <td>swap focused window with the one above it</td>
+                            </tr>
+                            <tr>
+                                <td><kbd>meta</kbd> + <kbd>shift</kbd> + <kbd>down</kbd></td>
+                                <td>swap focused window with the one below it</td>
+                            </tr>
+                            <tr>
+                                <td><kbd>meta</kbd> + <kbd>ctrl</kbd> + <kbd>right</kbd></td>
+                                <td>grow main stack horizontally</td>
+                            </tr>
+                            <tr>
+                                <td><kbd>meta</kbd> + <kbd>ctrl</kbd> + <kbd>left</kbd></td>
+                                <td>shrink main stack horizontally</td>
+                            </tr>
+                            <tr>
+                                <td><kbd>meta</kbd> + <kbd>ctrl</kbd> + <kbd>up</kbd></td>
+                                <td>grow active window verically</td>
+                            </tr>
+                            <tr>
+                                <td><kbd>meta</kbd> + <kbd>ctrl</kbd> + <kbd>down</kbd></td>
+                                <td>shrink active window verically</td>
+                            </tr>
+                            <tr>
+                                <td><kbd>meta</kbd> + <kbd>ctrl</kbd> + <kbd>+</kbd></td>
+                                <td>increase main stack size in tiling layout</td>
+                            </tr>
+                            <tr>
+                                <td><kbd>meta</kbd> + <kbd>ctrl</kbd> + <kbd>-</kbd></td>
+                                <td>decrease main stack size in tiling layout</td>
+                            </tr>
+                            <tr>
+                                <td><kbd>meta</kbd> + <kbd>ctrl</kbd> + <kbd>\</kbd></td>
+                                <td>switch between floating and tiling layouts</td>
+                            </tr>
+                            <tr>
+                                <td><kbd>meta</kbd> + <kbd>ctrl</kbd> + <kbd>F</kbd></td>
+                                <td>toggle float on all visible windows</td>
+                            </tr>
+                            <tr>
+                                <td><kbd>print</kbd></td>
+                                <td>open screenshotting tool</td>
+                            </tr>
+                            <tr>
+                                <td><kbd>meta</kbd> + <kbd>print</kbd></td>
+                                <td>capture active window</td>
+                            </tr>
+                            <tr>
+                                <td><kbd>meta</kbd> + <kbd>shift</kbd> + <kbd>print</kbd></td>
+                                <td>capture rectangular region</td>
+                            </tr>
+                            <tr>
+                                <td><kbd>media keys</kbd></td>
+                                <td>do what they are supposed to</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="writeup-box">
+                    <div class="writeup-text">
+                        <h3>shell abbreviations and aliases [WIP]</h3>
+                        <table>
+                            <tr>
+                                <td>clip</td>
+                                <td>xclip -selection clipboard</td>
+                            </tr>
+                            <tr>
+                                <td>cat</td>
+                                <td>bat --pager=never --theme="Dracula" --plain</td>
+                            </tr>
+                            <tr>
+                                <td>catn</td>
+                                <td>bat --pager=never --theme="Dracula" --number --decorations=always</td>
+                            </tr>
+                            <tr>
+                                <td>ls</td>
+                                <td>exa</td>
+                            </tr>
+                            <tr>
+                                <td>lst</td>
+                                <td>exa -T</td>
+                            </tr>
+                            <tr>
+                                <td>la</td>
+                                <td>exa -la</td>
+                            </tr>
+                            <tr>
+                                <td>lat</td>
+                                <td>exa -laT</td>
+                            </tr>
+                            <tr>
+                                <td>find</td>
+                                <td>fd</td>
+                            </tr>
+                            <tr>
+                                <td>finda</td>
+                                <td>fd -uu</td>
+                            </tr>
+                            <tr>
+                                <td>du</td>
+                                <td>dust</td>
+                            </tr>
+                            <tr>
+                                <td>grep</td>
+                                <td>rg</td>
+                            </tr>
+                            <tr>
+                                <td>grepb</td>
+                                <td>rg --binary</td>
+                            </tr>
+                            <tr>
+                                <td>top</td>
+                                <td>btm</td>
+                            </tr>
+                            <tr>
+                                <td>python</td>
+                                <td>bpython</td>
+                            </tr>
+                            <tr>
+                                <td>ps</td>
+                                <td>procs --pager=disable</td>
+                            </tr>
+                            <tr>
+                                <td>pst</td>
+                                <td>procs --pager=disable --tree</td>
+                            </tr>
+                            <tr>
+                                <td>vim</td>
+                                <td>nvim</td>
+                            </tr>
+                            <tr>
+                                <td><kbd>ctrl</kbd> + <kbd>F</kbd></td>
+                                <td>launch fzf recursively enumerating files and directories</td>
+                            </tr>
+                            <tr>
+                                <td><kbd>ctrl</kbd> + <kbd>R</kbd></td>
+                                <td>launch fzf with command history</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="download" id="download">
+            <div class="row">
+                <h2>Downloads</h2>
+                <div class="writeup-box">
+                    <div class="writeup-text">
+                        <h3>v1.0-alpha</h3>
+                        <ul class="project-list">
+                            <li>something</li>
+                            <li>something</li>
+                        </ul>
+                        <a href="https://mega.nz/file/5AAzyIBJ#bwmGK-CXi3W_4z2k6Grwets7yKtKL7cjRNOc2AGSreY" class="btn">download 1.0 alpha</a>
+                        <p>
+                            <code>
+                                sha256: e33d63de802eb7671d6d92182ba384bbcb794ebd198f7c2080e2e2d7b80bdafa
+                            </code>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="writeup-box">
+                    <div class="writeup-text">
+                        <h3>features planned for next release</h3>
+                        <ul class="project-list">
+                            <li>proxy setup for chromium, remove embedded browser from burpsuite</li>
+                            <li>android emulator</li>
+                            <li>java decompiler</li>
+                            <li>kde menu categories</li>
+                            <li>tor browser color scheme</li>
+                            <li>volatility</li>
+                            <li>ciphey</li>
+                            <li>audacity + color scheme</li>
+                            <li>torrent client</li>
+                            <li>irc client</li>
+                            <li>exa color scheme</li>
+                            <li>tlp</li>
+                            <li>keyboard shortcuts for multi monitor setup</li>
+                            <li>elf dissector</li>
+                            <li>more compilers and interpreters</li>
+                            <li>gnuplot + config / labplot</li>
+                            <li>more ctf tools</li>
+                            <li>better file associations</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer role="contentinfo" class="footer">
+        <div class="row">
+            <p style="text-align:left;">
+                &copy; 2021 roliboy
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
