@@ -358,8 +358,7 @@ a {
 
 .header {
     background: linear-gradient(rgba(40, 42, 54, .80), rgba(40, 42, 54, 1)),
-    url('../../images/icarus/burpsuite.png');
-    /* url('./images/header.png'); */
+    url('images/burpsuite.png');
     height: 100vh;
 
     /* background-repeat: no-repeat; */
