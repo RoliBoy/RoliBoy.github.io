@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
@@ -9,6 +10,7 @@
     <meta name="keywords" content="Nagy Roland, roliboy, ctf writeups, ctf, linux" />
     <link rel="stylesheet" href="index.css" />
 </head>
+
 <body>
     <header class="header" role="banner">
         <div id="canvas"></div>
@@ -47,14 +49,15 @@
                 <div class="project-boxes">
                     <div class="project-box">
                         <div class="project-text">
-                            <h3>icarus os</h3>
-                            <p>linux distribution for ctf players</p>
-                            <!-- <p>tools included for</p>
-                                    <ul class="project-list">
-                                    <li>pwn</li>
-                                    <li>re</li>
-                                    <li>forensics</li>
-                                    </ul> -->
+                            <h3>Icarus OS</h3>
+                            <p>Linux distribution for CTF players</p>
+                            <ul class="project-list">
+                                <li>custom color themes</li>
+                                <li>automatic widow tiling</li>
+                                <li>tools for any challenge</li>
+                                <li>clean environment on every boot</li>
+                                <li>archstrike repository</li>
+                            </ul>
                             <div class="project-links">
                                 <a href="projects/icarus/" class="link-text">
                                     Read more <span>&rarr;</span>
@@ -68,29 +71,25 @@
                             <div class="project-image fade">
                                 <img src="projects/icarus/images/logo.png" />
                             </div>
-                            <!-- <div class="project-image fade">
-                                <img src="projects/icarus/images/themes.png" />
-                                <div class="project-image-text">Themes</div>
-                            </div> -->
                             <div class="project-image fade">
-                                <img src="projects/icarus/images/tiling.png" />
-                                <div class="project-image-text">Three console windows in automatic tiling mode</div>
+                                <img src="projects/icarus/images/themes.png" />
+                                <div class="project-image-text">Unified system-wide dark theme</div>
                             </div>
                             <div class="project-image fade">
-                                <img src="projects/icarus/images/wireshark.png" />
-                                <div class="project-image-text">Custom wireshark color scheme</div>
+                                <img src="projects/icarus/images/tiling.png" />
+                                <div class="project-image-text">Automatic tiling with familiar keyboard shortcuts</div>
                             </div>
                             <div class="project-image fade">
                                 <img src="projects/icarus/images/cutter.png" />
-                                <div class="project-image-text">Custom cutter color scheme</div>
+                                <div class="project-image-text">Tools for binary, steganography, forensics, network and more</div>
                             </div>
                             <div class="project-image fade">
-                                <img src="projects/icarus/images/burpsuite.png" />
-                                <div class="project-image-text">Custom burpsuite color scheme</div>
+                                <img src="projects/icarus/images/wireshark.png" />
+                                <div class="project-image-text">Preconfigured environment, optimized for CTFs</div>
                             </div>
                             <div class="project-image fade">
-                                <img src="projects/icarus/images/kate.png" />
-                                <div class="project-image-text">Kate text editor</div>
+                                <img src="projects/icarus/images/archstrike.png" />
+                                <div class="project-image-text">Large collection of high quality tools</div>
                             </div>
                             <a class="prev" onclick="slidePrev('slides-icarus')">&#10094;</a>
                             <a class="next" onclick="slideNext('slides-icarus')">&#10095;</a>
@@ -99,16 +98,17 @@
                     <div class="project-box">
                         <div class="project-text">
                             <h3>archer</h3>
-                            <p>automated installer for arch linux</p>
+                            <p>Automated installer for arch linux</p>
                             <ul class="project-list">
+                                <li>support for multiple DE/WM</li>
+                                <li>friendly menu-based installer</li>
                                 <li>hardware detection</li>
+                                <li>automatic system configuration</li>
                                 <li>mirror ranking</li>
-                                <li>de/wm selection</li>
-                                <li>automatic configuration</li>
-                                <li><code>curl roliboy.ml/archer | bash</code></li>
+                                <li>progress feedback</li>
                             </ul>
                             <div class="project-links">
-                                <a href="https://placeholder.com/" class="link-text">
+                                <a href="projects/archer/" class="link-text">
                                     Read more <span>&rarr;</span>
                                 </a>
                                 <a href="https://github.com/roliboy/archer" target="_blank" title="View Source Code">
@@ -119,43 +119,27 @@
 
                         <div class="project-images" id="slides-archer">
                             <div class="project-image fade">
-                                <img src="images/archer/archer-logo.png" />
+                                <img src="projects/archer/images/archer.png" />
                             </div>
                             <div class="project-image fade">
-                                <img src="images/archer/timezone-selection.png" />
-                                <div class="project-image-text">Timezone selection</div>
-                            </div>
-                            <div class="project-image fade">
-                                <img src="images/archer/default-shell-selection.png" />
-                                <div class="project-image-text">Default shell selection</div>
-                            </div>
-                            <div class="project-image fade">
-                                <img src="images/archer/hostname-input.png" />
-                                <div class="project-image-text">Hostname input</div>
-                            </div>
-                            <div class="project-image fade">
-                                <img src="images/archer/password-input.png" />
-                                <div class="project-image-text">Password input</div>
-                            </div>
-                            <div class="project-image fade">
-                                <img src="images/archer/optional-features-selection.png" />
-                                <div class="project-image-text">Optional features selection</div>
-                            </div>
-                            <div class="project-image fade">
-                                <img src="images/archer/de-wm-selection.png" />
+                                <img src="projects/archer/images/de-wm-selection.png" />
                                 <div class="project-image-text">DE/WM selection</div>
                             </div>
                             <div class="project-image fade">
-                                <img src="images/archer/mirrorlist-ranking.png" />
+                                <img src="projects/archer/images/timezone-selection.png" />
+                                <div class="project-image-text">TUI installer</div>
+                            </div>
+                            <div class="project-image fade">
+                                <img src="projects/archer/images/mirrorlist-ranking.png" />
                                 <div class="project-image-text">Mirrorlist ranking</div>
                             </div>
                             <div class="project-image fade">
-                                <img src="images/archer/downloading-packages.png" />
-                                <div class="project-image-text">Downloading packages</div>
+                                <img src="projects/archer/images/default-shell-selection.png" />
+                                <div class="project-image-text">Default shell selection</div>
                             </div>
                             <div class="project-image fade">
-                                <img src="images/archer/installing-packages.png" />
-                                <div class="project-image-text">Installing packages</div>
+                                <img src="projects/archer/images/installing-packages.png" />
+                                <div class="project-image-text">Progress feedback</div>
                             </div>
                             <a class="prev" onclick="slidePrev('slides-archer')">&#10094;</a>
                             <a class="next" onclick="slideNext('slides-archer')">&#10095;</a>
@@ -203,7 +187,8 @@
                     <div class="project-box">
                         <div class="project-text">
                             <h3>raytracer</h3>
-                            <p>software ray tracer written in C, following the books from <a href="https://raytracing.github.io/" target="_blank" class="link">here</a></p>
+                            <p>software ray tracer written in C, following the books from <a
+                                    href="https://raytracing.github.io/" target="_blank" class="link">here</a></p>
                             <p>with some additional features like:</p>
                             <ul class="project-list">
                                 <li>realtime output to window using SDL</li>
@@ -231,7 +216,8 @@
                             </div>
                             <div class="project-image fade">
                                 <img src="images/raytracer/book2.png" />
-                                <div class="project-image-text">textures, subsurface scattering, fog and motion blur</div>
+                                <div class="project-image-text">textures, subsurface scattering, fog and motion blur
+                                </div>
                             </div>
                             <a class="prev" onclick="slidePrev('slides-raytracer')">&#10094;</a>
                             <a class="next" onclick="slideNext('slides-raytracer')">&#10095;</a>
@@ -258,7 +244,8 @@
                                 <a href="writeups/defcamp2020-qr-mania/" class="link-text">
                                     Read writeup <span>&rarr;</span>
                                 </a>
-                                <a href="https://app.cyberedu.ro/challenges/e40d5bc0-3565-11eb-b8d6-afd86980505c/" target="_blank" class="link-text writeup-site">
+                                <a href="https://app.cyberedu.ro/challenges/e40d5bc0-3565-11eb-b8d6-afd86980505c/"
+                                    target="_blank" class="link-text writeup-site">
                                     Go to challenge website <span>&rarr;</span>
                                 </a>
                             </div>
@@ -278,7 +265,8 @@
                                 <a href="writeups/unbreakableromaniaonline1-russiandoll/" class="link-text">
                                     Read writeup <span>&rarr;</span>
                                 </a>
-                                <a href="https://app.cyberedu.ro/challenges/81469120-0c6e-11eb-b745-edda158222f6/" target="_blank" class="link-text writeup-site">
+                                <a href="https://app.cyberedu.ro/challenges/81469120-0c6e-11eb-b745-edda158222f6/"
+                                    target="_blank" class="link-text writeup-site">
                                     Go to challenge website <span>&rarr;</span>
                                 </a>
                             </div>
@@ -298,7 +286,8 @@
                                 <a href="writeups/pwnablexyz-sub/" class="link-text">
                                     Read writeup <span>&rarr;</span>
                                 </a>
-                                <a href="https://pwnable.xyz/challenges/" target="_blank" class="link-text writeup-site">
+                                <a href="https://pwnable.xyz/challenges/" target="_blank"
+                                    class="link-text writeup-site">
                                     Go to challenge website <span>&rarr;</span>
                                 </a>
                             </div>
@@ -318,7 +307,8 @@
                                 <a href="writeups/pwnablexyz-welcome/" class="link-text">
                                     Read writeup <span>&rarr;</span>
                                 </a>
-                                <a href="https://pwnable.xyz/challenges/" target="_blank" class="link-text writeup-site">
+                                <a href="https://pwnable.xyz/challenges/" target="_blank"
+                                    class="link-text writeup-site">
                                     Go to challenge website <span>&rarr;</span>
                                 </a>
                             </div>
@@ -389,4 +379,5 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.2.0/p5.min.js"></script>
     <script src="index.js"></script>
 </body>
+
 </html>
