@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+    <link rel="shortcut icon" type="image/png" href="images/favicon.png" />
+    <title>unbreakableromania-russiandoll</title>
+    <meta name="description" content="unbreakable romania online 1 russiandoll writeup" />
+    <meta name="keywords"
+        content="roliboy, ctf writeups, ctf, unbreakable romania, unbreakable romania online 1, russiandoll" />
+    <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/dracula.min.css" />
+</head>
+
+<body>
+    <header class="header" role="heading">
+        <div class="header-text-box row">
+            <div class="header-text">
+                <h1 class="heading-primary">
+                    russiandoll
+                </h1>
+                <p>
+                    Unbreakable Romania Online 1
+                </p>
+            </div>
+        </div>
+    </header>
+    <main role="main">
+        <section class="description" id="description">
+            <div class="row">
+                <h2>Description</h2>
+                <ul class="section-list">
+                    <li>
+                        <b>Category:</b> [misc, programming]
+                    </li>
+                    <li>
+                        <b>Points:<b> 70 (dynamic)
+                    </li>
+                    <li>
+                        <b>Solves:</b> 43
+                    </li>
+                    <li>
+                        <b>Difficulty:</b> medium
+                    </li>
+                    <li>
+                        <b>Description:</b>
+                        <pre class="section-code"><code class="plaintext">Can you unfold the secrets lying within?
+
+Flag format: ctf{sha256}
+
+Goal: You have to understand what type of file is attached to this challenge, restore the original files and try to gain access to the flag.
+
+The challenge was created by Bit Sentinel.</code></pre>
+                    </li>
+                    <li>
+                        <b>Files:</b>
+                        <ul class="section-sublist">
+                            <li>
+                                <a
+                                    href="https://api.cyberedu.ro/v1/contest/unr1/challenge/81469120-0c6e-11eb-b745-edda158222f6/download/106">
+                                    jibeqnocfjjuijypians
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </section>
+        <section class="writeup" id="writeup">
+            <div class="row">
+                <h2>Writeup</h2>
+                <div class="section-box">
+                    <div class="section-text">
+                        <h3>inspecting the downloaded file</h3>
+                        <p>
+                            running <code>file</code> on the downloaded file reveals that it is a gzip compressed
+                            archive
+                        </p>
+
+                        <pre
+                            class="section-code"><code class="plaintext">jibeqnocfjjuijypians: gzip compressed data, was "ognhhfcfspjokexhjwoo"
+                            last modified: Mon Oct 12 09:33:12 2020, from Unix, original size modulo 2^32 14527</code></pre>
+
+                        <p>
+                            using <code>7z</code> to extract it, we get another archive, this time copressed with zip
+                        </p>
+
+                        <pre
+                            class="section-code"><code class="plaintext">ognhhfcfspjokexhjwoo: Zip archive data, at least v1.0 to extract</code></pre>
+                    </div>
+                </div>
+                <div class="section-box">
+                    <div class="section-text">
+                        <h3>digging deeper</h3>
+                        <p>
+                            let's keep extracting it with <code>7z</code>
+                        </p>
+
+                        <pre
+                            class="section-code"><code class="plaintext">Enter password (will not be echoed):</code></pre>
+                        <p>
+                            of course that would have been too simple...
+                        </p>
+
+                        <p>
+                            john will handle it
+                        </p>
+
+                        <pre class="section-code"><code class="bash">zip2john ognhhfcfspjokexhjwoo > hash
+john hash --wordlist=/usr/share/dict/rockyou.txt</code></pre>
+
+                        <pre class="section-code"><code class="plaintext">Using default input encoding: UTF-8
+Loaded 1 password hash (PKZIP [32/64])
+Will run 8 OpenMP threads
+Press 'q' or Ctrl-C to abort, almost any other key for status
+password         (ognhhfcfspjokexhjwoo/hash)
+1g 0:00:00:00 DONE (2020-12-24 18:57) 25.00g/s 409600p/s 409600c/s 409600C/s 123456..christal
+Use the "--show" option to display all of the cracked passwords reliably
+Session completed</code></pre>
+
+                        <p>
+                            extracting the archive with the cracked password results in a flie
+                            <code>archives/kkpjjvslqucmkudjqspk</code> which is again a gzip compressed archive
+                        </p>
+
+                        <p>
+                            after manually peeling back a few layers, a third archive format emerges
+                        </p>
+
+                        <pre
+                            class="section-code"><code class="plaintext">yrcpacrptgxicwigdrpu: 7-zip archive data, version 0.4</code></pre>
+                    </div>
+                </div>
+                <div class="section-box">
+                    <div class="section-text">
+                        <h3>automating the work</h3>
+
+                        <p>
+                            the script should loop indefinitely, taking certain actions on specific file formats:
+                        <ul class="section-list">
+                            <li><b>gzip archive</b>: extract it</li>
+                            <li><b>7-zip archive</b>: crack the password and extract it</li>
+                            <li><b>zip archive</b>: crack the password, extract it and move the obtained file from the
+                                subdirectory up one level</li>
+                            <li><b>ascii text</b>: display contents</li>
+                            <li><b>other</b>: halt</li>
+                        </ul>
+                        </p>
+
+                        <p>
+                            the following bash script does the same thing, except for the part with the subdirectories.
+                            it extracts both <code>gzip</code> and <code>7-zip</code> archives with the <code>-oarchives/</code> option, placing the
+                            resulting files in a subdirectory, the same way as <code>zip</code> archives do. this helps with
+                            wildcard-matching the resulting file
+                        </p>
+
+                        <pre class="section-code"><code class="bash">#!/bin/bash
+
+mv "$1" archive
+
+while true; do
+if [ -n "$(file archive | grep 'Zip archive data')" ]; then
+echo "zip"
+zip2john archive > hash
+john hash --wordlist=/usr/share/dict/rockyou.txt
+password=$(john hash --show | grep archive | cut -d':' -f2)
+7z x archive -p$password
+mv archives/* archive
+elif [ -n "$(file archive | grep '7-zip archive data')" ]; then
+echo "7-zip"
+7z2john archive > hash
+john hash --wordlist=/usr/share/dict/rockyou.txt
+password=$(john hash --show | grep archive | cut -d':' -f2)
+7z x archive -p$password -oarchives/
+mv archives/* archive
+elif [ -n "$(file archive | grep 'gzip compressed data')" ]; then
+echo "gzip"
+7z x archive -oarchives/
+mv archives/* archive
+elif [ -n "$(file archive | grep 'ASCII text')" ]; then
+echo "flag"
+mv archive flag.txt
+cat flag.txt
+exit
+else
+echo "unknown archive format"
+exit
+fi
+sleep 1
+done</code></pre>
+
+                    </div>
+                </div>
+                <div class="section-box">
+                    <div class="section-text">
+                        <h3>obtaining the flag</h3>
+                        <p>
+                            run the script with the initial archive as parameter
+                        </p>
+                        <pre class="section-code"><code class="plaintext">$ ./matrioska.sh jibeqnocfjjuijypians</code></pre>
+                        <p>
+                            and watch john do it's thing
+                        </p>
+                        <p>
+                            after a few minutes it reaches the plain textfile and the flag will be printed
+                        </p>
+                        <pre class="section-code"><code class="plaintext">ctf{8ffe609c04a7001a908da5b481442ce1ce3208f2a4f3a6862e144bb1f320c54e}</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer role="contentinfo" class="footer">
+        <div class="row">
+            <p style="text-align:left;">
+                &copy; 2021 roliboy
+            </p>
+        </div>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>
