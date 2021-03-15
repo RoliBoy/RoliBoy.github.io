@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+    <link rel="shortcut icon" type="image/png" href="images/favicon.png" />
+    <title>pwnablexyz-welcome</title>
+    <meta name="description" content="pwnable.xyz welcome writeup" />
+    <meta name="keywords" content="roliboy, ctf writeups, ctf, pwnable.xyz, pwnable xyz, welcome" />
+    <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/dracula.min.css" />
+</head>
+
+<body>
+    <header class="header" role="heading">
+        <div class="header-text-box row">
+            <div class="header-text">
+                <h1 class="heading-primary">
+                    welcome
+                </h1>
+                <p>
+                    pwnable.xyz
+                </p>
+            </div>
+        </div>
+    </header>
+    <main role="main">
+        <section class="description" id="description">
+            <div class="row">
+                <h2>Description</h2>
+                <ul class="section-list">
+                    <li>
+                        <b>Category:</b> [pwn, reversing]
+                    </li>
+                    <li>
+                        <b>Points:<b> 50 (fixed)
+                    </li>
+                    <li>
+                        <b>Solves:</b> 901 (at the time of writing)
+                    </li>
+                    <li>
+                        <b>Difficulty:</b> easy
+                    </li>
+                    <li>
+                        <b>Description:</b>
+                        <pre class="section-code"><code class="plaintext">Are you worthy to continue?
+
+svc.pwnable.xyz : 30000</code></pre>
+                    </li>
+                    <li>
+                        <b>Files:</b>
+                        <ul class="section-sublist">
+                            <li>
+                                <a href="https://pwnable.xyz/redisfiles/challenge_21.gz">
+                                    challenge
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </section>
+        <section class="writeup" id="writeup">
+            <div class="row">
+                <h2>Writeup</h2>
+                <div class="section-box">
+                    <div class="section-text">
+                        <h3>test run and function graph</h3>
+                        <p>
+                        <pre class="section-code"><code class="plaintext">$ ./challenge
+Welcome.
+Leak: 0x7f05f4b73010
+Length of your message: 420
+Enter your message: hello
+hello</code></pre>
+                        </p>
+                        <p>
+                            when executing the binary, it prints an address, reads a message length and the message and
+                            prints the read message
+                        </p>
+                        <p>
+                            let's see what the main function looks like, using cutter:
+                        </p>
+                        <img src="images/function_graph.png" />
+                        <p>
+                            there's the part that we want to reach: <code>system("cat flag")</code>
+                        </p>
+                        <p>
+                            to execute it, the value stored at address <code>rbx</code> should be <code>0</code>. if
+                            it's not euql to zero, <code>jne</code> will jump over the <code>system</code> call
+                        </p>
+                    </div>
+                </div>
+                <div class="section-box">
+                    <div class="section-text">
+                        <h3>understanding the function</h3>
+                        <img src="images/disassembly.png" />
+                        <p>
+                            main parts of the function:
+                        <ul class="section-list">
+                            <li>allocates a chunk of memory with malloc</li>
+                            <li>prints the address of the allocated memory</li>
+                            <li>reads a number</li>
+                            <li>allocates that many bytes</li>
+                            <li>reads that many characters into the newly allocated buffer</li>
+                            <li>sets the last character of the buffer to null</li>
+                        </ul>
+                        </p>
+                        <p>
+                            at first, it's not entirely obvious what needs to be done
+                        </p>
+
+                        <p>
+                            the only place where <code>rbx</code> is modified is after the first <code>malloc</code>. it
+                            gets assigned the return value of the <code>malloc</code> call (from <code>rax</code>), but
+                            we don't have control over that
+                        </p>
+
+                        <p>
+                            we could overwrite the value at <code>rbx</code> with zero if we can get the expression two
+                            lines before the check, <code>rbp+rdx*1-0x1</code> to be equal with <code>rbx</code>
+                        </p>
+
+                        <p>
+                            let's see what values <code>rbp</code> and <code>rdx</code> hold, and whether we can control
+                            them
+                        </p>
+
+                        <p>
+                            </code>rbp</code> gets assigned the return value of the second <code>malloc</code>. we have
+                            control over the size of the memory allocated, but the returned value is a "random" address
+                            decided by the kernel
+                        </p>
+                        <p>
+                            </code>rdx</code> gets assigned a value from the stack (</code>rsp</code>), but the same
+                            <code>rsp</code> is passed as the second argument to <code>scanf</code>, which stores in it
+                            the integer value we provide as input
+                        </p>
+                        <p>
+                            seems like we can only control <code>rdx</code>
+                        </p>
+                    </div>
+                </div>
+                <div class="section-box">
+                    <div class="section-text">
+                        <h3>c and the footguns</h3>
+                        <pre class="section-code"><code class="c">char* buffer = (char*)malloc(sizeof(char) * buffer_length);
+strcpy(buffer, "error checking? we don't do that here");</code></pre>
+                        <p>
+                            if you're a c programmer you probably did this many times
+                        </p>
+                        <p>
+                            but did you know that there's a chance of this happening?
+                        </p>
+                        <pre class="section-code"><code class="plaintext">Segmentation fault (core dumped)</code></pre>
+                        <p>
+                            from <code>man 3 malloc</code>:
+                        </p>
+                        <pre class="section-code"><code class="plaintext">The malloc() and calloc() functions return a pointer to the
+allocated memory, which is suitably aligned for any built-in
+type. On error, these functions return NULL.</code></pre>
+                        <p>
+                            which means with a big enough requested memory size, we can get the second
+                            <code>malloc</code> to fail and set <code>rbp</code> to zero
+                        </p>
+                    </div>
+                </div>
+                <div class="section-box">
+                    <div class="section-text">
+                        <h3>obtaining the flag</h3>
+                        <pre class="section-code"><code class="plaintext">rbx = rbp + rdx - 1</code></pre>
+                        <p>
+                            so we can directly control <code>rdx</code> with our input, and <code>rbp</code> becomes
+                            zero if the value is big enough
+                        </p>
+                        <pre class="section-code"><code class="plaintext">rbp + rdx = rbx + 1</code></pre>
+                        <p>
+                            the input needs to be the leaked address plus one. for a typical heap address (somewhere
+                            around 128 terabytes) it is safe to assume that <code>malloc</code> will fail and
+                            <code>rbp</code> becomes zero
+                        </p>
+                        <pre class="section-code"><code class="plaintext">Welcome.
+Leak: 0x7f1e1b3de010
+Length of your message: 139767282786321
+Enter your message: get pwned
+FLAG{did_you_really_need_a_script_to_solve_this_one?}</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer role="contentinfo" class="footer">
+        <div class="row">
+            <p style="text-align:left;">
+                &copy; 2021 roliboy
+            </p>
+        </div>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>
