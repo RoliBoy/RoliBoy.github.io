@@ -147,6 +147,46 @@
                     </div>
                     <div class="project-box">
                         <div class="project-text">
+                            <h3>raytracer</h3>
+                            <p>software ray tracer written in pure C, following the books from <a
+                                    href="https://raytracing.github.io/" target="_blank" class="link">here</a></p>
+                            <p>with some additional features like:</p>
+                            <ul class="project-list">
+                                <li>multithreaded rendering</li>
+                                <li>AVX256 intrinsics</li>
+                                <li>realtime output to window using SDL</li>
+                                <li>scene creation library written in python</li>
+                                <li>scene loading from files</li>
+                            </ul>
+                            <div class="project-links">
+                                <a href="projects/raytracer/" class="link-text">
+                                    Read more <span>&rarr;</span>
+                                </a>
+                                <a href="https://github.com/roliboy/raytracer" target="_blank" title="View Source Code">
+                                    <img src="images/github.svg" class="project-github" alt="github" />
+                                </a>
+                            </div>
+                        </div>
+                        <div class="project-images" id="slides-raytracer">
+                            <div class="project-image fade">
+                                <img src="projects/raytracer/images/book2.png" />
+                                <div class="project-image-text">textures, subsurface scattering, fog and motion blur
+                                </div>
+                            </div>
+                            <div class="project-image fade">
+                                <img src="projects/raytracer/images/book1-lights.png" />
+                                <div class="project-image-text">light emission with no ambiental lighting</div>
+                            </div>
+                            <div class="project-image fade">
+                                <img src="projects/raytracer/images/book1.gif" style="min-width: 100%;"/>
+                                <div class="project-image-text">multi-threaded rendering with real-time output</div>
+                            </div>
+                            <a class="prev" onclick="slidePrev('slides-raytracer')">&#10094;</a>
+                            <a class="next" onclick="slideNext('slides-raytracer')">&#10095;</a>
+                        </div>
+                    </div>
+                    <div class="project-box">
+                        <div class="project-text">
                             <h3>ansify</h3>
                             <p>image to ansi escape sequence converter</p>
                             <!-- <p>tools included for</p>
@@ -182,45 +222,6 @@
                             </div>
                             <a class="prev" onclick="slidePrev('slides-ansify')">&#10094;</a>
                             <a class="next" onclick="slideNext('slides-ansify')">&#10095;</a>
-                        </div>
-                    </div>
-                    <div class="project-box">
-                        <div class="project-text">
-                            <h3>raytracer</h3>
-                            <p>software ray tracer written in C, following the books from <a
-                                    href="https://raytracing.github.io/" target="_blank" class="link">here</a></p>
-                            <p>with some additional features like:</p>
-                            <ul class="project-list">
-                                <li>realtime output to window using SDL</li>
-                                <li>multithreaded rendering</li>
-                                <li>scene loading from files</li>
-                                <li>AVX256 intrinsics</li>
-                            </ul>
-                            <div class="project-links">
-                                <a href="https://placeholder.com/" class="link-text">
-                                    Read more <span>&rarr;</span>
-                                </a>
-                                <a href="https://github.com/roliboy/ansify" target="_blank" title="View Source Code">
-                                    <img src="images/github.svg" class="project-github" alt="github" />
-                                </a>
-                            </div>
-                        </div>
-                        <div class="project-images" id="slides-raytracer">
-                            <div class="project-image fade">
-                                <img src="images/raytracer/book1.png" />
-                                <div class="project-image-text">metal, dielectric and diffuse spheres</div>
-                            </div>
-                            <div class="project-image fade">
-                                <img src="images/raytracer/book1-lights.png" />
-                                <div class="project-image-text">colored lights</div>
-                            </div>
-                            <div class="project-image fade">
-                                <img src="images/raytracer/book2.png" />
-                                <div class="project-image-text">textures, subsurface scattering, fog and motion blur
-                                </div>
-                            </div>
-                            <a class="prev" onclick="slidePrev('slides-raytracer')">&#10094;</a>
-                            <a class="next" onclick="slideNext('slides-raytracer')">&#10095;</a>
                         </div>
                     </div>
                 </div>
