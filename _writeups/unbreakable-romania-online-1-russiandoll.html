@@ -75,9 +75,12 @@ The challenge was created by Bit Sentinel.</code></pre>
                         archive
                     </p>
 
-                    <pre
-                        class="section-code"><code class="plaintext">jibeqnocfjjuijypians: gzip compressed data, was "ognhhfcfspjokexhjwoo"
-                        last modified: Mon Oct 12 09:33:12 2020, from Unix, original size modulo 2^32 14527</code></pre>
+                    <p>
+{% highlight plaintext %}
+jibeqnocfjjuijypians: gzip compressed data, was "ognhhfcfspjokexhjwoo"
+last modified: Mon Oct 12 09:33:12 2020, from Unix, original size modulo 2^32 14527
+{% endhighlight %}
+                    </p>
 
                     <p>
                         using <code>7z</code> to extract it, we get another archive, this time copressed with zip
@@ -107,14 +110,18 @@ The challenge was created by Bit Sentinel.</code></pre>
                     <pre class="section-code"><code class="bash">zip2john ognhhfcfspjokexhjwoo > hash
 john hash --wordlist=/usr/share/dict/rockyou.txt</code></pre>
 
-                    <pre class="section-code"><code class="plaintext">Using default input encoding: UTF-8
+<p>
+{% highlight plaintext %}
+Using default input encoding: UTF-8
 Loaded 1 password hash (PKZIP [32/64])
 Will run 8 OpenMP threads
 Press 'q' or Ctrl-C to abort, almost any other key for status
 password         (ognhhfcfspjokexhjwoo/hash)
 1g 0:00:00:00 DONE (2020-12-24 18:57) 25.00g/s 409600p/s 409600c/s 409600C/s 123456..christal
 Use the "--show" option to display all of the cracked passwords reliably
-Session completed</code></pre>
+Session completed
+{% endhighlight %}
+</p>
 
                     <p>
                         extracting the archive with the cracked password results in a flie
@@ -152,40 +159,44 @@ Session completed</code></pre>
                         wildcard-matching the resulting file
                     </p>
 
-                    <pre class="section-code"><code class="bash">#!/bin/bash
+<p>
+{% highlight bash linenos %}
+#!/bin/bash
 
 mv "$1" archive
 
 while true; do
-if [ -n "$(file archive | grep 'Zip archive data')" ]; then
-echo "zip"
-zip2john archive > hash
-john hash --wordlist=/usr/share/dict/rockyou.txt
-password=$(john hash --show | grep archive | cut -d':' -f2)
-7z x archive -p$password
-mv archives/* archive
-elif [ -n "$(file archive | grep '7-zip archive data')" ]; then
-echo "7-zip"
-7z2john archive > hash
-john hash --wordlist=/usr/share/dict/rockyou.txt
-password=$(john hash --show | grep archive | cut -d':' -f2)
-7z x archive -p$password -oarchives/
-mv archives/* archive
-elif [ -n "$(file archive | grep 'gzip compressed data')" ]; then
-echo "gzip"
-7z x archive -oarchives/
-mv archives/* archive
-elif [ -n "$(file archive | grep 'ASCII text')" ]; then
-echo "flag"
-mv archive flag.txt
-cat flag.txt
-exit
-else
-echo "unknown archive format"
-exit
-fi
-sleep 1
-done</code></pre>
+    if [ -n "$(file archive | grep 'Zip archive data')" ]; then
+        echo "zip"
+        zip2john archive > hash
+        john hash --wordlist=/usr/share/dict/rockyou.txt
+        password=$(john hash --show | grep archive | cut -d':' -f2)
+        7z x archive -p$password
+        mv archives/* archive
+    elif [ -n "$(file archive | grep '7-zip archive data')" ]; then
+        echo "7-zip"
+        7z2john archive > hash
+        john hash --wordlist=/usr/share/dict/rockyou.txt
+        password=$(john hash --show | grep archive | cut -d':' -f2)
+        7z x archive -p$password -oarchives/
+        mv archives/* archive
+    elif [ -n "$(file archive | grep 'gzip compressed data')" ]; then
+        echo "gzip"
+        7z x archive -oarchives/
+        mv archives/* archive
+    elif [ -n "$(file archive | grep 'ASCII text')" ]; then
+        echo "flag"
+        mv archive flag.txt
+        cat flag.txt
+        exit
+    else
+        echo "unknown archive format"
+        exit
+    fi
+    sleep 1
+done
+{% endhighlight %}
+</p>
 
                 </div>
             </div>

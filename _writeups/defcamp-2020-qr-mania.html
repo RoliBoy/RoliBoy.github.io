@@ -100,7 +100,8 @@ The challenge was proposed by BIT SENTINEL.</code></pre>
                         turns out the position of each character is stored in the exif data of the corresponding
                         image
                     </p>
-                    <pre class="section-code"><code>ls resources/*.png |\
+{% highlight bash %}
+ls resources/*.png |\
 xargs -n1 exiftool |\
 grep -i 'file name\|comment' |\
 awk '{print $NF}' |\
@@ -109,7 +110,8 @@ sed 's/\/69/\n/g' |\
 sed '/^ $/d' |\
 sort -nk2 |\
 awk '{print "resources/"$1}' >\
-order.txt</code></pre>
+order.txt
+{% endhighlight %}
                     <p>
                         <code>order.txt</code> now contains a list of filenames in the order in which the images
                         should be decoded
@@ -123,29 +125,33 @@ order.txt</code></pre>
                         using a python script, iterate over the filenames in the previously obtained order and
                         convert the qr codes to monochrome so they can be decoded with <code>pyzbar</code>:
                     </p>
-                    <pre class="section-code"><code class="python">#!/usr/bin/env python
+                    <p>
+{% highlight python linenos %}
+#!/usr/bin/env python
 from pyzbar.pyzbar import decode
 
 from PIL import Image
 
 with open("order.txt") as order:
-for file in order:
-    original_image = Image.open(file.strip())
-    original_pixels = original_image.load()
+    for file in order:
+        original_image = Image.open(file.strip())
+        original_pixels = original_image.load()
 
-    monochrome_image = Image.new(original_image.mode, original_image.size)
-    monochrome_pixels = monochrome_image.load()
+        monochrome_image = Image.new(original_image.mode, original_image.size)
+        monochrome_pixels = monochrome_image.load()
 
-    background = original_pixels[0, 0]
+        background = original_pixels[0, 0]
 
-    for i in range(original_image.size[0]):
-        for j in range(original_image.size[1]):
-            if original_pixels[i, j] == background:
-                monochrome_pixels[i, j] = (255, 255, 255, 255)
-            else:
-                monochrome_pixels[i, j] = (0, 0, 0, 255)
-    print(decode(monochrome_image)[0].data.decode('utf-8'), end='')
-print()</code></pre>
+        for i in range(original_image.size[0]):
+            for j in range(original_image.size[1]):
+                if original_pixels[i, j] == background:
+                    monochrome_pixels[i, j] = (255, 255, 255, 255)
+                else:
+                    monochrome_pixels[i, j] = (0, 0, 0, 255)
+        print(decode(monochrome_image)[0].data.decode('utf-8'), end='')
+    print()
+{% endhighlight %}
+                    </p>
                 </div>
             </div>
             <div class="section-box">
