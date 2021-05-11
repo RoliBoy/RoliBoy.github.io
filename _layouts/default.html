@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+
+  {% if page.favicon %}
+  <link rel="shortcut icon" type="image/png" href="{{ page.favicon | relative_url }}">
+  {% else %}
+  <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
+  {% endif %}
+
+  {% if page.title %}
+  <title>{{ page.title }}</title>
+  {% endif %}
+
+  {% if page.description %}
+  <meta name="description" content="{{ page.description }}">
+  {% endif %}
+
+  {% if page.keywords %}
+  <meta name="keywords" content="{{ page.keywords }}">
+  {% endif %}
+
+  <link rel="stylesheet" href="{{ "/assets/css/main.css" | relative_url }}">
+</head>
+
+<body>
+  {{ content }}
+</body>
+
+</html>

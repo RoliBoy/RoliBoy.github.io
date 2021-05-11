@@ -1,0 +1,114 @@
+---
+layout: default
+title: raytracer
+description: software ray tracer written in pure C
+name: raytracer
+summary: software ray tracer written in pure C, following the books from <a href="https://raytracing.github.io/" target="_blank" class="link">here</a></p><p>with some additional features like:</p>
+features:
+    - multithreaded rendering
+    - AVX256 intrinsics
+    - realtime output to window using SDL
+    - scene creation library written in python
+    - scene loading from files
+images:
+    - url: /assets/images/raytracer/book2.png
+      text: textures, subsurface scattering, fog and motion blur
+    - url: /assets/images/raytracer/book1-lights.png
+      text: light emission with no ambiental lighting
+    - url: /assets/images/raytracer/book1.gif
+      text: multi-threaded rendering with real-time output
+repository: https://github.com/roliboy/raytracer
+permalink: /features/raytracer/
+---
+
+<header class="header" role="banner">
+    <div class="row">
+        <nav class="nav" role="navigation">
+            <ul class="nav-items">
+                <li class="nav-item">
+                    <a href="#features" class="nav-link">Features</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#usage" class="nav-link">Usage</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#building" class="nav-link">Building</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div class="header-text-box row">
+        <div class="header-text">
+            <h1 class="heading-primary">
+                <span>raytracer</span>
+            </h1>
+            <p>software ray tracer written in pure c</p>
+        </div>
+    </div>
+</header>
+<main role="main">
+    <section class="features" id="features">
+        <div class="row">
+            <h2>Features</h2>
+            <div class="feature-boxes">
+                <div class="feature-box">
+                    <div class="feature-text">
+                        <h3>Multi-threaded rendering</h3>
+                        <p>with AVX256 intrinsics and real-time output</p>
+                    </div>
+                    <div class="feature-photo-container">
+                        <img src="/assets/images/raytracer/book1.gif" style="min-width: 100%;"/>
+                    </div>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-text">
+                        <h3>Scene creation framework</h3>
+                        <p>custom python library for easily creating scenes</p>
+                    </div>
+                    <div class="feature-photo-container">
+                        <img src="/assets/images/raytracer/book1-lights.png" />
+                    </div>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-text">
+                        <h3>Materials and textures</h3>
+                        <p>constant mediums, subsurface scattering, light emission and more</p>
+                    </div>
+                    <div class="feature-photo-container">
+                        <img src="/assets/images/raytracer/book2.png" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="usage" id="usage">
+        <div class="row">
+            <h2>Usage</h2>
+            <div class="writeup-box">
+                <div class="writeup-text">
+                    <h3>scenekit library usage [TODO]</h3>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="building" id="building">
+        <div class="row">
+            <h2>Build instructions</h2>
+            <div class="writeup-box">
+                <div class="writeup-text">
+                    <h3>[TODO]</h3>
+
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer role="contentinfo" class="footer">
+    <div class="row">
+        <p style="text-align:left;">
+            &copy; 2021 roliboy
+        </p>
+    </div>
+</footer>

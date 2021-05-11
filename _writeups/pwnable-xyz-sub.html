@@ -1,0 +1,204 @@
+---
+layout: default
+title: "[pwnable.xyz] sub"
+summary: libc format string, signed vs unsigned comparison instructions in assembly
+properties:
+    - "Category: [pwn, reversing]"
+    - "Points: 50 (fixed)"
+    - "Solves: 928 (at the time of writing)"
+    - "Difficulty: easy"
+website: https://pwnable.xyz/challenges/
+permalink: /writeups/pwnable-xyz-sub/
+---
+
+<header class="header" role="heading">
+    <div class="header-text-box row">
+        <div class="header-text">
+            <h1 class="heading-primary">
+                sub
+            </h1>
+            <p>
+                pwnable.xyz
+            </p>
+        </div>
+    </div>
+</header>
+<main role="main">
+    <section class="description" id="description">
+        <div class="row">
+            <h2>Description</h2>
+            <ul class="section-list">
+                <li>
+                    <b>Category:</b> [pwn, reversing]
+                </li>
+                <li>
+                    <b>Points:<b> 50 (fixed)
+                </li>
+                <li>
+                    <b>Solves:</b> 928 (at the time of writing)
+                </li>
+                <li>
+                    <b>Difficulty:</b> easy
+                </li>
+                <li>
+                    <b>Description:</b>
+                    <pre class="section-code"><code class="plaintext">Do you know basic math?
+
+svc.pwnable.xyz : 30001</code></pre>
+                </li>
+                <li>
+                    <b>Files:</b>
+                    <ul class="section-sublist">
+                        <li>
+                            <a href="https://pwnable.xyz/redisfiles/challenge_22.gz">
+                                challenge
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </section>
+    <section class="writeup" id="writeup">
+        <div class="row">
+            <h2>Writeup</h2>
+            <div class="section-box">
+                <div class="section-text">
+                    <h3>
+                        initial run
+                    </h3>
+                    <p>
+                        when the binary is run, it prints <code>1337 input:</code> and waits for input
+                    </p>
+                    <p>
+                    <pre class="section-code"><code class="plaintext">$ ./challenge
+1337 input: hello?</code></pre>
+                    </p>
+                    <p>
+                        passing it <code>hello?</code> did nothing
+                    </p>
+                    <p>
+                        let's see what the read function expects:
+                    </p>
+                    <img src="/assets/images/pwnable-xyz-sub/scanf.png" />
+                    <p>
+                        the format string seems to be <code>%u %u</code>, so it reads two unsigned integers
+                    </p>
+
+                    <pre class="section-code"><code class="plaintext">$ ./challenge
+1337 input: 69 420</code></pre>
+                    <p>
+                        still no output
+                    </p>
+                </div>
+            </div>
+            <div class="section-box">
+                <div class="section-text">
+                    <h3>
+                        function graph
+                    </h3>
+                    <img src="/assets/images/pwnable-xyz-sub/function_graph.png" />
+                    <p>
+                        it is pretty simple. it reads two integers, does some checks and eventually reaches the
+                        <code>system("cat flag")</code> call
+                    </p>
+                    <p>
+                        after reading the integers, it checks if the first value is greater than
+                        <code>0x1336</code>. since we want to get to the <code>system</code> call, this check needs
+                        to fail, so we have to provide a value less than or equal to <code>0x1336</code> to proceed
+                        to the next check
+                    </p>
+                    <p>
+                        in the second check, the second number is compared against <code>0x1336</code>. this time we
+                        want the jump to be executed, so the provided number will have to be, same as before, less
+                        than or equal to <code>0x1336</code>
+                    </p>
+                    <p>
+                        before the last check, the second number is subtracted from the first one, and the resulting
+                        difference is compared with <code>0x1337</code>. if it is equal to <code>0x1337</code>, the
+                        <code>system("cat flag")</code> call is executed and we obtain the flag
+                    </p>
+                    <p>
+                        so...
+                    </p>
+
+                    <pre class="section-code"><code class="c">n1 <= 0x1336
+n2 <= 0x1336
+n1 - n2 == 0x1337</code></pre>
+                    <p>
+                        but the application reads two unsigned integers, how is that possible?
+                    </p>
+                </div>
+            </div>
+            <div class="section-box">
+                <div class="section-text">
+                    <h3>looking for things that could go wrong</h3>
+                    <p>
+                        searching <code>c scanf format</code> on google returned a wikipedia page with a list of all
+                        valid format sequences with a short explanation
+                    </p>
+                    <p>
+                        here's the part that concerns us:
+                    </p>
+                    <pre class="section-code"><code class="plaintext">%u : Scan for decimal unsigned int
+(Note that in the C99 standard the input value minus sign is optional, so if a minus sign is read,
+no errors will arise and the result will be the two's complement of a negative number,
+likely a very large value).</code></pre>
+                    <p>
+                        passing a negative number as input will result in "a very large value", but "a very large
+                        value" is probably larger than <code>0x1336</code> and it will fail the check, right?
+                    </p>
+                </div>
+            </div>
+            <div class="section-box">
+                <div class="section-text">
+                    <h3>signed and unsigned comparisons at instruction level</h3>
+                    <p>
+                        there are two sets of instructions for inequality operators:
+                    </p>
+                    <p>
+                        signed:
+                        <ul class="section-list">
+                            <li><code>>= : jg</code> (jump if greater)</li>
+                            <li><code>>= : jge</code> (jump if greater or equal)</li>
+                            <li><code>< : jl</code> (jump if less)</li>
+                            <li><code><= : jle</code> (jump if less or equal)</li>
+                        </ul>
+
+                        unsigned:
+                        <ul class="section-list">
+                            <li><code>>= : ja</code> (jump if above)</li>
+                            <li><code>>= : jae</code> (jump if above or equal)</li>
+                            <li><code>< : jb</code> (jump if below)</li>
+                            <li><code><= : jbe</code> (jump if below or equal)</li>
+                        </ul>
+                    </p>
+                    <p>
+                        both checks in the program use a signed comparison instruction, so for all intents and purposes, the "very large values", still act like negative numbers
+                    </p>
+                </div>
+            </div>
+            <div class="section-box">
+                <div class="section-text">
+                    <h3>obtaining the flag</h3>
+                    <pre class="section-code"><code class="plaintext">let n1 = k, with k < 0
+and n2 = k - 0x1337
+then
+n1 - n2 = k - (k - 0x1337) = 0x1337</code></pre>
+                    <p>
+                        let's try it out for an arbitrary value of k
+                    </p>
+                    <pre class="section-code"><code class="plaintext">1337 input: -420 -5339
+FLAG{sub_neg_==_add}</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<footer role="contentinfo" class="footer">
+    <div class="row">
+        <p style="text-align:left;">
+            &copy; 2021 roliboy
+        </p>
+    </div>
+</footer>

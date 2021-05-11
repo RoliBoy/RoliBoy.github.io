@@ -1,0 +1,147 @@
+---
+layout: default
+title: archer
+name: archer
+description: automated installer for arch linux
+summary: automated installer for arch linux
+features:
+    - support for multiple DE/WM
+    - friendly menu-based installer
+    - hardware detection
+    - automatic system configuration
+    - mirror ranking
+    - progress feedback
+images:
+    - url: /assets/images/archer/archer.png
+    - url: /assets/images/archer/de-wm-selection.png
+      text: DE/WM selection
+    - url: /assets/images/archer/timezone-selection.png
+      text: TUI installer
+    - url: /assets/images/archer/mirrorlist-ranking.png
+      text: Mirrorlist ranking
+    - url: /assets/images/archer/default-shell-selection.png
+      text: Default shell selection
+    - url: /assets/images/archer/installing-packages.png
+      text: Progress feedback
+repository: https://github.com/roliboy/archer
+permalink: /projects/archer/
+---
+
+<header class="header" role="banner">
+    <div id="canvas"></div>
+    <div class="row">
+        <nav class="nav" role="navigation">
+            <ul class="nav-items">
+                <li class="nav-item">
+                    <a href="#features" class="nav-link">Features</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#usage" class="nav-link">Usage</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div class="header-text-box row">
+        <div class="header-text">
+            <h1 class="heading-primary">
+                <span>archer</span>
+            </h1>
+            <p>automated arch linux install script</p>
+        </div>
+    </div>
+</header>
+<main role="main">
+    <section class="features" id="features">
+        <div class="row">
+            <h2>Features</h2>
+            <div class="feature-boxes">
+                <div class="feature-box">
+                    <div class="feature-text">
+                        <h3>Support for multiple DE/WM</h3>
+                        <p>choose from multiple desktop environment and window manager options</p>
+                    </div>
+                    <div class="feature-photo-container">
+                        <img src="/assets/images/archer/de-wm-selection.png" />
+                    </div>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-text">
+                        <h3>Friendly interface</h3>
+                        <p>menu-based TUI installer</p>
+                    </div>
+                    <div class="feature-photo-container">
+                        <img src="/assets/images/archer/timezone-selection.png" />
+                    </div>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-text">
+                        <h3>Hardware detection</h3>
+                        <p>for CPU, GPU, boot mode, battery, wireless, bluetooth and SSD</p>
+                    </div>
+                    <div class="feature-photo-container">
+                        <img src="/assets/images/archer/optional-features-selection.png" />
+                    </div>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-text">
+                        <h3>Automatic system configuration</h3>
+                        <p>nvidia optimus backends, tlp and systemd configurations</p>
+                    </div>
+                    <div class="feature-photo-container">
+                        <img src="/assets/images/archer/default-shell-selection.png" />
+                    </div>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-text">
+                        <h3>Mirror ranking</h3>
+                        <p>download speed and ping based ranking</p>
+                    </div>
+                    <div class="feature-photo-container">
+                        <img src="/assets/images/archer/mirrorlist-ranking.png" />
+                    </div>
+                </div>
+
+                <div class="feature-box">
+                    <div class="feature-text">
+                        <h3>Progress bar</h3>
+                        <p>installation progress feedback</p>
+                    </div>
+                    <div class="feature-photo-container">
+                        <img src="/assets/images/archer/installing-packages.png" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="usage" id="usage">
+        <div class="row">
+            <h2>Usage</h2>
+            <div class="writeup-box">
+                <div class="writeup-text">
+                    <h3>installation steps:</h3>
+                    <ul class="project-list">
+                        <li>download the official archiso</li>
+                        <li>make a bootable media</li>
+                        <li>boot</li>
+                        <li>run <code class="bash">curl -Ls roliboy.ml/archer | bash</code></li>
+                        <li>follow installation dialog</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="writeup-box">
+                <div class="writeup-text">
+                    <h3>step-by-step wallkthrough [TODO]</h3>
+
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer role="contentinfo" class="footer">
+    <div class="row">
+        <p style="text-align:left;">
+            &copy; 2021 roliboy
+        </p>
+    </div>
+</footer>
