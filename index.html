@@ -3,31 +3,30 @@ layout: default
 
 title: roliboy's homepage
 description: yeet
-favicon: /assets/images/favicon.png
 keywords: Acel keyword, inca unu
 ---
 
 <header class="header" role="banner">
     <div id="canvas"></div>
     <div class="row">
-        <nav class="nav" role="navigation">
-            <ul class="nav-items">
-                <li class="nav-item">
-                    <a href="#projects" class="nav-link">Projects</a>
+        <nav role="navigation">
+            <ul>
+                <li>
+                    <a href="#projects">Projects</a>
                 </li>
-                <li class="nav-item">
-                    <a href="#writeups" class="nav-link">Writeups</a>
+                <li>
+                    <a href="#writeups">Writeups</a>
                 </li>
-                <li class="nav-item">
-                    <a href="#about" class="nav-link">About</a>
+                <li>
+                    <a href="#about">About</a>
                 </li>
-                <li class="nav-item">
-                    <a href="#contact" class="nav-link">Contact</a>
+                <li>
+                    <a href="#contact">Contact</a>
                 </li>
             </ul>
         </nav>
     </div>
-    <div class="header-text-box row">
+    <div class="row">
         <div class="header-text">
             <h1 class="heading-primary">
                 <span>roliboy</span>
@@ -38,8 +37,8 @@ keywords: Acel keyword, inca unu
 </header>
 
 <main role="main">
-    <section class="projects" id="projects">
-        <row>
+    <section id="projects">
+        <div class="row">
             <h2>Projects</h2>
             <div class="project-boxes">
                 {% for project in site.projects %}
@@ -76,10 +75,11 @@ keywords: Acel keyword, inca unu
                 </div>
                 {% endfor %}
             </div>
-        </row>
+        </div>
     </section>
+
     <section class="writeups" id="writeups">
-        <row>
+        <div class="row">
             <h2>Writeups</h2>
             <div class="writeup-boxes">
                 {% for writeup in site.writeups %}
@@ -105,8 +105,9 @@ keywords: Acel keyword, inca unu
                 </div>
                 {% endfor %}
             </div>
-        </row>
+        </div>
     </section>
+    
     <section class="about" id="about">
         <div class="row">
             <h2>About Me</h2>
@@ -170,4 +171,5 @@ keywords: Acel keyword, inca unu
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.2.0/p5.min.js"></script>
+<script src="assets/scripts/slides.js"></script>
 <script src="assets/scripts/shapes.js"></script>
