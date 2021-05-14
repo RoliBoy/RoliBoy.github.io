@@ -1,0 +1,75 @@
+@import "constants";
+
+.project-boxes {
+  display: block;
+}
+
+.project-box {
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 900px) {
+  .project-box {
+    align-items: initial;
+    flex-direction: column-reverse;
+  }
+}
+
+.project-box:not(:last-child) {
+  margin-bottom: $gutterHuge;
+}
+
+.project-links {
+  display: flex;
+  align-items: center;
+}
+
+.project-text {
+  flex: 0 0 30%;
+}
+
+.project-list {
+  list-style-position: inside;
+  margin-bottom: $gutterNormal;
+}
+
+.project-github {
+  display: block;
+  height: 3rem;
+  margin-left: $gutterNormal;
+  transition: all 0.3s;
+}
+
+.project-github:hover {
+  transform: scale(1.2);
+}
+
+.project-images {
+  margin-bottom: $gutterNormal;
+  position: relative;
+  margin: auto;
+}
+
+.project-images img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.project-image {
+  display: none;
+}
+
+@media (min-width: 901px) {
+  .project-images {
+    flex: 1;
+    margin: 0 0 0 10rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .project-github {
+    height: 4rem;
+  }
+}

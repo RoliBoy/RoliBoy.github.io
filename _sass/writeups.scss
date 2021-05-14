@@ -1,0 +1,38 @@
+@import "constants";
+
+.writeup-boxes {
+  display: block;
+}
+
+.writeup-box {
+  align-items: center;
+}
+
+@media (max-width: 900px) {
+  .writeup-box {
+    align-items: initial;
+    flex-direction: column-reverse;
+  }
+}
+
+.writeup-box:not(:last-child) {
+  margin-bottom: $gutterHuge;
+}
+
+.writeup-site {
+  margin-left: 2em;
+}
+
+.writeup-links {
+  display: flex;
+  align-items: center;
+}
+
+.writeup-text {
+  flex: 0 0 30%;
+}
+
+.writeup-list {
+  list-style-position: inside;
+  margin-bottom: $gutterNormal;
+}

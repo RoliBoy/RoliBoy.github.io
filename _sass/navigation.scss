@@ -1,0 +1,65 @@
+@import "constants";
+
+nav {
+  display: flex;
+  justify-content: flex-end;
+  padding: $gutterNormal 0;
+}
+
+@media (max-width: 500px) {
+  nav {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 300px) {
+  nav {
+    font-size: $fontSizeSmall;
+  }
+}
+
+nav > ul {
+  display: flex;
+  list-style: none;
+}
+
+nav > ul > li:not(:last-child) {
+  margin-right: $gutterMedium;
+}
+
+@media (max-width: 400px) {
+  nav > ul > li:not(:last-child) {
+    margin-right: $gutterNormal;
+  }
+}
+
+nav > ul > li > a {
+  position: relative;
+  display: inline-block;
+  padding: 1rem 0;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.2s;
+}
+
+nav > ul > li > a::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 100%;
+  display: inline-block;
+  height: 1rem;
+  background: $white;
+  transition: all 0.25s cubic-bezier(1, 0.68, 0.16, 0.9);
+}
+
+nav > ul > li > a:hover {
+  color: $pink;
+}
+
+nav > ul > li > a:hover::after {
+  right: 0;
+  height: 2px;
+  background: $pink;
+}

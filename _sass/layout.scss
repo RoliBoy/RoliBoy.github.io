@@ -1,0 +1,30 @@
+@import "constants";
+
+.row {
+  max-width: $containerMaxWidth;
+  margin: 0 auto;
+}
+
+@media (max-width: 1340px) {
+  .row {
+    max-width: 1100px;
+  }
+}
+
+@media (max-width: 1240px) {
+  .row {
+    padding: 0 $gutterMedium;
+  }
+}
+
+@media (max-width: 600px) {
+  .row {
+    padding: 0 $gutterNormal;
+  }
+}
+
+@media (max-width: 600px) {
+  .row {
+    padding: 0 $gutterSmall;
+  }
+}
