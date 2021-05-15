@@ -3,18 +3,18 @@ highlighter: rouge
 collections:
   projects:
     output: true
-    order:
-      - icarus.html
-      - archer.html
-      - raytracer.html
-      - ansify.html
-      - observer.html
+    # order:
+    #   - icarus.html
+    #   - archer.html
+    #   - raytracer.html
+    #   - ansify.html
+    #   - observer.html
   writeups:
     output: true
-    order:
-      - defcamp-2020-qr-mania.html
-      - unbreakable-romania-online-1-russiandoll.html
-      - pwnable-xyz-sub.html
-      - pwnable-xyz-welcome.html
+    # order:
+    #   - defcamp-2020-qr-mania.html
+    #   - unbreakable-romania-online-1-russiandoll.html
+    #   - pwnable-xyz-sub.html
+    #   - pwnable-xyz-welcome.html
   scripts:
     output: true

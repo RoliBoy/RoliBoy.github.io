@@ -41,7 +41,8 @@ keywords: Nagy Roland, roliboy, ctf writeups
         <div class="row">
             <h2>Projects</h2>
             <div class="project-boxes">
-                {% for project in site.projects %}
+                {% assign projects = site.projects | sort: "order" %}
+                {% for project in projects %}
                 <div class="project-box">
                     <div class="project-text">
                         <h3>{{ project.name }}</h3>
